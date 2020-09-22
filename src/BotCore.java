@@ -6,13 +6,9 @@ public class BotCore {
         return scan.nextLine();
     }
 
-    public static void output(String message) {
+    public static void output(Object message) {
         System.out.println(message);
     }
 
-    public static void main(String[] args) {
-        while (true) {
 
-        }
-    }
 }
