@@ -7,29 +7,33 @@ public class CommandHandler {
     Commands commands = new Commands();
 
     //Словарь (название метода, сам метод)
-    private HashMap<String, Object> myDict = new HashMap<>();
+    private HashMap<String, Object> commandDict = new HashMap<>();
 
     //Конструктор, создающий базовые команды
-    public CommandHandler(){
+    public CommandHandler() {
         //!Вроде можно как-то улучшить!
         set("/start", commands.getCommand(commands.start()));
         set("/help", commands.getCommand(commands.help()));
     }
 
     private Object get(String key) {
-        return this.myDict.get(key);
+        return this.commandDict.get(key);
     }
 
-    private void set(String key, Object value){
-        this.myDict.put(key, value);
+    private void set(String key, Object value) {
+        this.commandDict.put(key, value);
     }
-     //Метод, возвращающий запрашиваемую команду
-    //!Надо сделать проверку на существование команды!
-    public Object doCommand(String command){
+    //Метод, возвращающий запрашиваемую команду
+
+    public Object doCommand(String command) {
+        if (!commandDict.containsKey(command)) {
+            return commands.notExist();
+        }
         return get(command);
     }
+
     //Метод, добавляющий в словарь новую команду
-    void newCommand(String commandName, Object commandMethod){
+    void newCommand(String commandName, Object commandMethod) {
         set(commandName, commandMethod);
     }
 
