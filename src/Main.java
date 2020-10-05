@@ -1,19 +1,27 @@
-import java.util.HashMap;
+import сommands.CommandHandler;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CommandHandler commandHandler = new CommandHandler();
-        Commands commands = new Commands();
-        String curCommand = "/start";
-        commandHandler.newCommand("/weather", commands.weather());
+        CommandHandler command = new CommandHandler();
+        String curCommand = "/help";
+        command.doCommand("/weather");
 
-        while (true) {
-            if (curCommand.equals("/exit")) {
-                break;
-            }
-            BotCore.output(commandHandler.doCommand(curCommand));
-            curCommand = BotCore.input();
+        while (!curCommand.equals("/exit")){
+            command.doCommand(curCommand);
+            output(command.commandMessage());
+            curCommand = input();
         }
+    }
 
+    public static String input() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
+    }
+
+    public static void output(Object message) {
+        System.out.println(message);
     }
 }
+
