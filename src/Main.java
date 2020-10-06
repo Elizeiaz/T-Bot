@@ -13,8 +13,8 @@ public class Main {
         User user = new User(input());
         Paths path = new Paths();
 
+        
         user.addUserInfo("City", input());
-        user.addUserInfo("age", input());
         user.saveUserInfo();
 
 //        String curCommand = "/start";

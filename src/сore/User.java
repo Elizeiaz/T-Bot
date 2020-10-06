@@ -11,27 +11,33 @@ public class User {
 
     private HashMap<String, String> userDictInfo = new HashMap<>();
 
+    //Плохо ли в конструкторе подгружать инфу?
     public User(String id) {
         this.userDictInfo.put("id", id);
+        uploadUserInfo();
     }
 
-    public boolean checkUser() {
-        File file = new File(path.getPathToUser(userDictInfo.get("id")));
+    public boolean checkUser(String id) {
+        File file = new File(id);
         if (file.exists()) {
             return true;
         }
         return false;
     }
 
-    public Boolean createUser() {
-        if (!checkUser()) {
-            fileHandler.writeFile(path.getPathToUser(userDictInfo.get("id")));
+    public boolean createUser(String id) {
+        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
+            fileHandler.writeFile(id, "");
             return true;
         }
         return false;
     }
 
     public void uploadUserInfo() {
+        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
+            return;
+        }
+
         String userInfo;
 
         try {
@@ -43,19 +49,31 @@ public class User {
         userInfo = userInfo.substring(1, userInfo.length() - 1);
         String[] splitedStr = userInfo.split(", ");
         for (String str: splitedStr){
-            String[] strForDict = str.substring(0, str.length() - 1).split("=", 1);
-            this.userDictInfo.put(strForDict[0], strForDict[1]);
+            String[] keyAndValue = str.split("=");
+            userDictInfo.put(keyAndValue[0], keyAndValue[1]);
         }
     }
 
     public void saveUserInfo() {
-        if (!checkUser()){
-            createUser();
+        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))){
+            createUser(path.getPathToUser(userDictInfo.get("id")));
         }
         fileHandler.writeFile(path.getPathToUser(userDictInfo.get("id")), userDictInfo.toString());
     }
 
-    public void addUserInfo(String key, String value){
-        userDictInfo.put(key, value);
+    public boolean addUserInfo(String key, String value){
+        if (checkUser(path.getPathToUser(userDictInfo.get("id")))){
+            userDictInfo.put(key, value);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUserInfo(String key){
+        if (checkUser(path.getPathToUser(userDictInfo.get("id")))){
+            userDictInfo.remove(key);
+            return true;
+        }
+        return false;
     }
 }
