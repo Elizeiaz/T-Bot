@@ -8,9 +8,10 @@ public class CommandHandler {
     private String message;
 
     public CommandHandler() {
+        this.commandDict.put("/start", new Start());
         this.commandDict.put("/help", new Help());
+        this.commandDict.put("unexpectedCommand", new unexpectedCommand());
         this.commandDict.put("/weather", new Weather());
-        this.commandDict.put("/other", new OtherCommand());
     }
 
     public void doCommand(String curCommand) {
@@ -18,7 +19,7 @@ public class CommandHandler {
             this.message = commandDict.get(curCommand).execute();
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            this.message = commandDict.get("unexpectedCommand").execute();
         }
 
     }

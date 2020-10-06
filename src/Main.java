@@ -1,11 +1,14 @@
 import сommands.CommandHandler;
+import сore.FileHandler;
+import сore.Paths;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         CommandHandler command = new CommandHandler();
-        String curCommand = "/help";
+        FileHandler fileHandler = new FileHandler();
+        String curCommand = "/start";
 
         while (!curCommand.equals("/exit")) {
             command.doCommand(curCommand);
@@ -19,7 +22,7 @@ public class Main {
         return scan.nextLine();
     }
 
-    public static void output(Object message) {
+    public static void output(String message) {
         System.out.println(message);
     }
 }

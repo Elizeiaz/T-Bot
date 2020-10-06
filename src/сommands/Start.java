@@ -3,7 +3,7 @@ package сommands;
 import сore.FileHandler;
 import сore.Paths;
 
-public class Help implements Command {
+public class Start implements Command{
     @Override
     public String execute() {
         return getInfo();
@@ -12,6 +12,6 @@ public class Help implements Command {
     private String getInfo() {
         Paths path = new Paths();
         FileHandler fileHandler = new FileHandler();
-        return fileHandler.readFile(path.pathToHelp);
+        return fileHandler.readFile(path.pathToStart);
     }
 }
