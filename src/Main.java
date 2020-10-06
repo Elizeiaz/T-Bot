@@ -1,5 +1,6 @@
 import сommands.CommandHandler;
 import сore.FileHandler;
+import сore.Paths;
 import сore.User;
 
 import java.util.HashMap;
@@ -10,6 +11,7 @@ public class Main {
         CommandHandler command = new CommandHandler();
         FileHandler fileHandler = new FileHandler();
         User user = new User(input());
+        Paths path = new Paths();
 
         user.addUserInfo("City", input());
         user.addUserInfo("age", input());
