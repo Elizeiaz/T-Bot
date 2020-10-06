@@ -10,6 +10,8 @@ public class Paths {
     public final String pathToUsers = new File(this.pathToInfo, "users").toString();
 
     public String getPathToUser(String id){
+        System.out.println(new File(this.pathToUsers, id).toString());
         return new File(this.pathToUsers, id).toString();
+
     }
 }
