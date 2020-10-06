@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args) {
         CommandHandler command = new CommandHandler();
         String curCommand = "/help";
-        command.doCommand("/weather");
 
-        while (!curCommand.equals("/exit")){
+        while (!curCommand.equals("/exit")) {
             command.doCommand(curCommand);
             output(command.commandMessage());
             curCommand = input();

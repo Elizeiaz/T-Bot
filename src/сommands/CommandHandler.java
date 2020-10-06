@@ -8,7 +8,7 @@ public class CommandHandler {
     private String message;
 
     public CommandHandler() {
-        this.commandDict.put("/help", new OtherCommand());
+        this.commandDict.put("/help", new Help());
         this.commandDict.put("/weather", new Weather());
         this.commandDict.put("/other", new OtherCommand());
     }
@@ -18,7 +18,7 @@ public class CommandHandler {
             this.message = commandDict.get(curCommand).execute();
         }
         catch (Exception e) {
-            System.out.println("!Несуществующая команда!\n" + e);
+            throw new RuntimeException(e);
         }
 
     }
