@@ -1,4 +1,4 @@
 .idea
 users
 out
-log/tmp
+/log/tmp/*
