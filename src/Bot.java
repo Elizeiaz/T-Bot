@@ -29,20 +29,19 @@ public class Bot {
     }
 
     public static void main(String[] args) {
-        CommandHandler command = new CommandHandler();
-        FileWorker fileWorker = new FileWorker();
         User user = new User(input());
+        CommandHandler command = new CommandHandler(user);
+        FileWorker fileWorker = new FileWorker();
 
-        logger.info("hello");
 //        user.addUserInfo("City", input());
 //        user.saveUserInfo();
 
-//        String curCommand = "/start";
-//        while (!curCommand.equals("/exit")) {
-//            command.doCommand(curCommand);
-//            output(command.commandMessage());
-//            curCommand = input();
-//        }
+        String curCommand = "/start";
+        while (!curCommand.equals("/exit")) {
+            command.doCommand(curCommand);
+            output(command.commandMessage());
+            curCommand = input();
+        }
     }
 
     public static String input() {

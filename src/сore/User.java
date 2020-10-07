@@ -1,9 +1,14 @@
 package сore;
 
+import com.sun.tools.javac.Main;
+
 import java.io.File;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class User {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     //Нормально?
     private Paths path = new Paths();
     private FileWorker fileWorker = new FileWorker();
@@ -13,7 +18,23 @@ public class User {
     //Плохо ли в конструкторе подгружать инфу?
     public User(String id) {
         this.userDictInfo.put("id", id);
+        createUserDir();
         uploadUserInfo();
+    }
+
+    public boolean checkUserDir() {
+        File file = new File(path.pathToUsers);
+        if (file.exists()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void createUserDir(){
+        if (!checkUserDir()){
+            File file = new File(path.pathToUsers);
+            file.mkdir();
+        }
     }
 
     public boolean checkUser(String id) {
@@ -24,15 +45,15 @@ public class User {
         return false;
     }
 
-    public boolean createUser(String id) {
+    public boolean createUser() {
         if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
-            fileWorker.writeFile(id, "");
+            fileWorker.writeFile(path.getPathToUser(userDictInfo.get("id")), "");
             return true;
         }
         return false;
     }
 
-    public void uploadUserInfo() {
+    private void uploadUserInfo() {
         if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
             return;
         }
@@ -54,18 +75,11 @@ public class User {
     }
 
     public void saveUserInfo() {
-        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))){
-            createUser(path.getPathToUser(userDictInfo.get("id")));
-        }
         fileWorker.writeFile(path.getPathToUser(userDictInfo.get("id")), userDictInfo.toString());
     }
 
-    public boolean addUserInfo(String key, String value){
-        if (checkUser(path.getPathToUser(userDictInfo.get("id")))){
-            userDictInfo.put(key, value);
-            return true;
-        }
-        return false;
+    public void addUserInfo(String key, String value){
+        userDictInfo.put(key, value);
     }
 
     public boolean deleteUserInfo(String key){
@@ -74,5 +88,9 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    public HashMap<String, String> getUserInfo(){
+        return this.userDictInfo;
     }
 }
