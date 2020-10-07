@@ -1,6 +1,6 @@
 package сommands;
 
-import сore.FileHandler;
+import сore.FileWorker;
 import сore.Paths;
 
 public class Help implements Command {
@@ -11,7 +11,7 @@ public class Help implements Command {
 
     private String getInfo() {
         Paths path = new Paths();
-        FileHandler fileHandler = new FileHandler();
-        return fileHandler.readFile(path.pathToHelp);
+        FileWorker fileWorker = new FileWorker();
+        return fileWorker.readFile(path.pathToHelp);
     }
 }

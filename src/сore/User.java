@@ -1,13 +1,12 @@
 package сore;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class User {
     //Нормально?
     private Paths path = new Paths();
-    private FileHandler fileHandler = new FileHandler();
+    private FileWorker fileWorker = new FileWorker();
 
     private HashMap<String, String> userDictInfo = new HashMap<>();
 
@@ -27,7 +26,7 @@ public class User {
 
     public boolean createUser(String id) {
         if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
-            fileHandler.writeFile(id, "");
+            fileWorker.writeFile(id, "");
             return true;
         }
         return false;
@@ -41,7 +40,7 @@ public class User {
         String userInfo;
 
         try {
-            userInfo = fileHandler.readFile(path.getPathToUser(userDictInfo.get("id")));
+            userInfo = fileWorker.readFile(path.getPathToUser(userDictInfo.get("id")));
         } catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -58,7 +57,7 @@ public class User {
         if (!checkUser(path.getPathToUser(userDictInfo.get("id")))){
             createUser(path.getPathToUser(userDictInfo.get("id")));
         }
-        fileHandler.writeFile(path.getPathToUser(userDictInfo.get("id")), userDictInfo.toString());
+        fileWorker.writeFile(path.getPathToUser(userDictInfo.get("id")), userDictInfo.toString());
     }
 
     public boolean addUserInfo(String key, String value){

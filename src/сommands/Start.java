@@ -1,9 +1,10 @@
 package сommands;
 
-import сore.FileHandler;
+import сore.FileWorker;
 import сore.Paths;
 
-public class Start implements Command{
+
+public class Start implements Command {
     @Override
     public String execute() {
         return getInfo();
@@ -11,7 +12,7 @@ public class Start implements Command{
 
     private String getInfo() {
         Paths path = new Paths();
-        FileHandler fileHandler = new FileHandler();
-        return fileHandler.readFile(path.pathToStart);
+        FileWorker fileWorker = new FileWorker();
+        return fileWorker.readFile(path.pathToStart);
     }
 }
