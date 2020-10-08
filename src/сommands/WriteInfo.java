@@ -3,6 +3,7 @@ package сommands;
 import com.sun.tools.javac.Main;
 import сore.User;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WriteInfo implements Command{
@@ -22,8 +23,13 @@ public class WriteInfo implements Command{
     public void pillUserInfo() {
         Scanner scan = new Scanner(System.in);
         String[] keyAndValue = scan.nextLine().split("=");
-        this.user.addUserInfo(keyAndValue[0], keyAndValue[1]);
+        try {
+            this.user.addUserInfo(keyAndValue[0], keyAndValue[1]);
+        } catch (Exception e) {
+            logger.log(Level.INFO, "Неккоректный ввод данных", e);
+        }
+
         logger.fine(this.user.getUserInfo().toString());
-        this.user.saveUserInfo();   
+        this.user.saveUserInfo();
     }
 }

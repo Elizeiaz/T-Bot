@@ -18,13 +18,11 @@ public class CommandHandler {
     }
 
     public void doCommand(String curCommand) {
-        try {
+        if (this.commandDict.containsKey(curCommand)){
             this.message = commandDict.get(curCommand).execute();
-        }
-        catch (Exception e) {
+        } else {
             this.message = commandDict.get("unexpectedCommand").execute();
         }
-
     }
 
     public String commandMessage() {
