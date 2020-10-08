@@ -24,6 +24,6 @@ public class WriteInfo implements Command{
         String[] keyAndValue = scan.nextLine().split("=");
         this.user.addUserInfo(keyAndValue[0], keyAndValue[1]);
         logger.fine(this.user.getUserInfo().toString());
-        this.user.saveUserInfo();
+        this.user.saveUserInfo();   
     }
 }
