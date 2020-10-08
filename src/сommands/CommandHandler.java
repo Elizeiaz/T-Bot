@@ -12,7 +12,7 @@ public class CommandHandler {
     public CommandHandler(User user) {
         this.commandDict.put("/start", new Start());
         this.commandDict.put("/help", new Help());
-        this.commandDict.put("unexpectedCommand", new unexpectedCommand());
+        this.commandDict.put("UnexpectedCommand", new UnexpectedCommand());
         this.commandDict.put("/write", new WriteInfo(user));
         this.commandDict.put("/read", new Readinfo(user));
     }

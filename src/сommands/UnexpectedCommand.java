@@ -1,6 +1,6 @@
 package сommands;
 
-public class unexpectedCommand implements Command{
+public class UnexpectedCommand implements Command{
     @Override
     public String execute() {
         return getInfo();
