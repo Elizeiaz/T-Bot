@@ -24,10 +24,7 @@ public class User {
 
     public boolean checkUserDir() {
         File file = new File(path.pathToUsers);
-        if (file.exists()) {
-            return true;
-        }
-        return false;
+        return file.exists();
     }
 
     public void createUserDir(){
@@ -39,10 +36,7 @@ public class User {
 
     public boolean checkUser(String id) {
         File file = new File(id);
-        if (file.exists()) {
-            return true;
-        }
-        return false;
+        return file.exists();
     }
 
     public boolean createUser() {

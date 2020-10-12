@@ -27,10 +27,7 @@ public class FileWorker {
     public boolean writeFile(String path) {
         try {
             File file = new File(path);
-            if (file.createNewFile()){
-                return true;
-            }
-            return false;
+            return file.createNewFile();
         } catch (IOException e){
             logger.log(Level.WARNING, "IOException: ", e);
             return false;
