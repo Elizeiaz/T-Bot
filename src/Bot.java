@@ -6,7 +6,6 @@ import сore.User;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.*;
-import java.io.File;
 
 public class Bot {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
@@ -24,7 +23,6 @@ public class Bot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         logger.addHandler(consoleHandler);
     }
 
@@ -33,8 +31,6 @@ public class Bot {
         CommandHandler command = new CommandHandler(user);
         FileWorker fileWorker = new FileWorker();
 
-//        user.addUserInfo("City", input());
-//        user.saveUserInfo();
 
         String curCommand = "/start";
         while (!curCommand.equals("/exit")) {

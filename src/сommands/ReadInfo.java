@@ -4,7 +4,7 @@ import сore.User;
 
 import java.util.HashMap;
 
-public class Readinfo implements Command{
+public class ReadInfo implements Command{
     User user;
 
     @Override
@@ -12,13 +12,14 @@ public class Readinfo implements Command{
         return getUserInfo();
     }
 
-    public Readinfo(User user){
+    public ReadInfo(User user){
         this.user = user;
     }
 
     public String getUserInfo(){
         StringBuilder outString = new StringBuilder();
         HashMap<String, String> strDict = user.getUserInfo();
+
         for (String str: strDict.keySet()){
             outString.append(str).append(": ").append(strDict.get(str)).append("\n");
         }

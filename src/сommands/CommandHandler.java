@@ -14,14 +14,14 @@ public class CommandHandler {
         this.commandDict.put("/help", new Help());
         this.commandDict.put("UnexpectedCommand", new UnexpectedCommand());
         this.commandDict.put("/write", new WriteInfo(user));
-        this.commandDict.put("/read", new Readinfo(user));
+        this.commandDict.put("/read", new ReadInfo(user));
     }
 
     public void doCommand(String curCommand) {
         if (this.commandDict.containsKey(curCommand)){
             this.message = commandDict.get(curCommand).execute();
         } else {
-            this.message = commandDict.get("unexpectedCommand").execute();
+            this.message = commandDict.get("UnexpectedCommand").execute();
         }
     }
 
