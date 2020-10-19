@@ -2,7 +2,6 @@ package сommands;
 
 import com.sun.tools.javac.Main;
 import сore.User;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,8 +11,13 @@ public class WriteInfo implements Command{
 
     @Override
     public String execute() {
-        pillUserInfo();
-        return "Информация успешно добавлена";
+        if (user.getTmpUserInfo() == null){
+            user.isUserCommandEnded = false;
+            return "Введите данные по типу: ключ=значение";
+        } else {
+            pillUserInfo();
+            return "Информация успешно добавлена";
+        }
     }
 
     public WriteInfo(User user){
@@ -21,8 +25,7 @@ public class WriteInfo implements Command{
     }
 
     public void pillUserInfo() {
-        Scanner scan = new Scanner(System.in);
-        String[] keyAndValue = scan.nextLine().split("=");
+        String[] keyAndValue = user.getTmpUserInfo().split("=");
         try {
             this.user.addUserInfo(keyAndValue[0], keyAndValue[1]);
         } catch (Exception e) {

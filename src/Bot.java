@@ -1,15 +1,13 @@
 import com.sun.tools.javac.Main;
 import сommands.CommandHandler;
-import сore.FileWorker;
-import сore.Paths;
 import сore.User;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.*;
 
 public class Bot {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    private static final Paths path = new Paths();
 
     //Настройка для логгера
     static {
@@ -27,16 +25,24 @@ public class Bot {
     }
 
     public static void main(String[] args) {
-        User user = new User(input());
+        User user = new User("user");
         CommandHandler command = new CommandHandler(user);
-        FileWorker fileWorker = new FileWorker();
 
+        user.lastUserCommand = "/start";
+        output(command.doCommand(user.lastUserCommand));
 
-        String curCommand = "/start";
-        while (!curCommand.equals("/exit")) {
-            command.doCommand(curCommand);
-            output(command.commandMessage());
-            curCommand = input();
+        while (!user.lastUserCommand.equals("/exit")) {
+            if (user.isUserCommandEnded){
+                user.lastUserCommand = input();
+                output(command.doCommand(user.lastUserCommand));
+                user.setNullTmpUserInfo();
+            } else {
+                user.setTmpUserInfo(input());
+                output(command.doCommand(user.lastUserCommand));
+                user.setNullTmpUserInfo();
+                user.isUserCommandEnded = true;
+            }
+
         }
     }
 

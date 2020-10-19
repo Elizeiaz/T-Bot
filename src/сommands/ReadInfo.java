@@ -3,6 +3,7 @@ package сommands;
 import сore.User;
 
 import java.util.HashMap;
+import java.util.StringJoiner;
 
 public class ReadInfo implements Command{
     User user;
@@ -17,13 +18,17 @@ public class ReadInfo implements Command{
     }
 
     public String getUserInfo(){
-        StringBuilder outString = new StringBuilder();
+        StringJoiner outString = new StringJoiner("\n");
         HashMap<String, String> strDict = user.getUserInfo();
+        if (strDict.keySet().toString().equals("")){
+            return "Информация не найдена";
+        }
 
         for (String str: strDict.keySet()){
-            outString.append(str).append(": ").append(strDict.get(str)).append("\n");
+            String keyAndValueStr = str + ": " + strDict.get(str);
+            outString.add(keyAndValueStr);
         }
-        outString.delete(outString.length()-1, outString.length());
+
         return outString.toString();
     }
 }

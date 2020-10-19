@@ -11,11 +11,14 @@ public class User {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     //Нормально?
-    private Paths path = new Paths();
-    private FileWorker fileWorker = new FileWorker();
-    public String userId;
+    private final Paths path = new Paths();
+    private final FileWorker fileWorker = new FileWorker();
 
+    public String userId;
     private HashMap<String, String> userDictInfo = new HashMap<>();
+    public String lastUserCommand;
+    public boolean isUserCommandEnded = true;
+    private String tmpUserInfo = null;
 
     //Плохо ли в конструкторе подгружать инфу?
     public User(String id) {
@@ -42,6 +45,18 @@ public class User {
         return file.exists();
     }
 
+    public void setTmpUserInfo(String value){
+        this.tmpUserInfo = value;
+    }
+
+    public void setNullTmpUserInfo(){
+        this.tmpUserInfo = null;
+    }
+
+    public String getTmpUserInfo(){
+        return this.tmpUserInfo;
+    }
+
     private void uploadUserInfo() {
         if (!checkUser(path.getPathToUser(userId))) {
             logger.finer("User info not founded");
@@ -49,20 +64,23 @@ public class User {
         }
 
         String userInfo;
-
         try {
             userInfo = fileWorker.readFile(path.getPathToUser(userId));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        userInfo = userInfo.substring(1, userInfo.length() - 1);
-        String[] splitedStr = userInfo.split(", ");
-        for (String str : splitedStr) {
-            String[] keyAndValue = str.split("=");
-            userDictInfo.put(keyAndValue[0], keyAndValue[1]);
+        if (!userInfo.equals("")) {
+            userInfo = userInfo.substring(1, userInfo.length() - 1);
+            String[] splitedStr = userInfo.split(", ");
+            for (String str : splitedStr) {
+                String[] keyAndValue = str.split("=");
+                userDictInfo.put(keyAndValue[0], keyAndValue[1]);
+            }
+            logger.finer("User info uploaded");
+        } else {
+            logger.finer("User info is empty");
         }
-        logger.finer("User info uploaded");
     }
 
     public void saveUserInfo() {
