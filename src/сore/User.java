@@ -3,6 +3,7 @@ package сore;
 import com.sun.tools.javac.Main;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -12,12 +13,13 @@ public class User {
     //Нормально?
     private Paths path = new Paths();
     private FileWorker fileWorker = new FileWorker();
+    public String userId;
 
     private HashMap<String, String> userDictInfo = new HashMap<>();
 
     //Плохо ли в конструкторе подгружать инфу?
     public User(String id) {
-        this.userDictInfo.put("id", id);
+        this.userId = id;
         createUserDir();
         uploadUserInfo();
     }
@@ -27,10 +29,11 @@ public class User {
         return file.exists();
     }
 
-    public void createUserDir(){
-        if (!checkUserDir()){
+    public void createUserDir() {
+        if (!checkUserDir()) {
             File file = new File(path.pathToUsers);
             file.mkdir();
+            logger.finer("User directory created");
         }
     }
 
@@ -39,52 +42,48 @@ public class User {
         return file.exists();
     }
 
-    public boolean createUser() {
-        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
-            fileWorker.writeFile(path.getPathToUser(userDictInfo.get("id")), "");
-            return true;
-        }
-        return false;
-    }
-
     private void uploadUserInfo() {
-        if (!checkUser(path.getPathToUser(userDictInfo.get("id")))) {
+        if (!checkUser(path.getPathToUser(userId))) {
+            logger.finer("User info not founded");
             return;
         }
 
         String userInfo;
 
         try {
-            userInfo = fileWorker.readFile(path.getPathToUser(userDictInfo.get("id")));
-        } catch (Exception e){
+            userInfo = fileWorker.readFile(path.getPathToUser(userId));
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         userInfo = userInfo.substring(1, userInfo.length() - 1);
         String[] splitedStr = userInfo.split(", ");
-        for (String str: splitedStr){
+        for (String str : splitedStr) {
             String[] keyAndValue = str.split("=");
             userDictInfo.put(keyAndValue[0], keyAndValue[1]);
         }
+        logger.finer("User info uploaded");
     }
 
     public void saveUserInfo() {
-        fileWorker.writeFile(path.getPathToUser(userDictInfo.get("id")), userDictInfo.toString());
+        fileWorker.writeFile(path.getPathToUser(userId), userDictInfo.toString());
+        logger.finer("User info saved");
     }
 
-    public void addUserInfo(String key, String value){
+    public void addUserInfo(String key, String value) {
         userDictInfo.put(key, value);
+        logger.finer(MessageFormat.format("key: {0}, value: {1} added", key, value));
     }
 
-    public boolean deleteUserInfo(String key){
-        if (checkUser(path.getPathToUser(userDictInfo.get("id")))){
-            userDictInfo.remove(key);
-            return true;
-        }
-        return false;
-    }
+//    public boolean deleteUserInfo(String key) {
+//        if (checkUser(path.getPathToUser(userId))) {
+//            userDictInfo.remove(key);
+//            return true;
+//        }
+//        return false;
+//    }
 
-    public HashMap<String, String> getUserInfo(){
+    public HashMap<String, String> getUserInfo() {
         return this.userDictInfo;
     }
 }
