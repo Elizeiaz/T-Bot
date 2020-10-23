@@ -27,21 +27,18 @@ public class Bot {
     public static void main(String[] args) {
         User user = new User("user");
         CommandHandler command = new CommandHandler(user);
+        
 
-        user.lastUserCommand = "/start";
-        output(command.doCommand(user.lastUserCommand));
+        user.userState.setLastCommand("/start");
+        output(command.doCommand(user.userState.getLastCommand()));
 
-        while (!user.lastUserCommand.equals("/exit")) {
-            if (user.isUserCommandEnded){
-                user.lastUserCommand = input();
-                output(command.doCommand(user.lastUserCommand));
-                user.setNullTmpUserInfo();
+        while (!user.userState.getLastCommand().equals("/exit")) {
+            if (user.userState.getUserState().equals("ended")){
+                user.userState.setLastCommand(input());
             } else {
-                user.setTmpUserInfo(input());
-                output(command.doCommand(user.lastUserCommand));
-                user.setNullTmpUserInfo();
-                user.isUserCommandEnded = true;
+                user.userState.setTmpUserInfo(input());
             }
+            output(command.doCommand(user.userState.getLastCommand()));
 
         }
     }

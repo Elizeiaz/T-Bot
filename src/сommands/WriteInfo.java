@@ -11,11 +11,12 @@ public class WriteInfo implements Command{
 
     @Override
     public String execute() {
-        if (user.getTmpUserInfo() == null){
-            user.isUserCommandEnded = false;
+        if (user.userState.getUserState().equals("ended")){
+            user.userState.setUserState("need_arg");
             return "Введите данные по типу: ключ=значение";
         } else {
-            pillUserInfo();
+            user.userState.setUserState("ended");
+            pillUserInfo(user.userState.getTmpUserInfo());
             return "Информация успешно добавлена";
         }
     }
@@ -24,8 +25,8 @@ public class WriteInfo implements Command{
         this.user = user;
     }
 
-    public void pillUserInfo() {
-        String[] keyAndValue = user.getTmpUserInfo().split("=");
+    public void pillUserInfo(String inputStr) {
+        String[] keyAndValue = inputStr.split("=");
         try {
             this.user.addUserInfo(keyAndValue[0], keyAndValue[1]);
         } catch (Exception e) {

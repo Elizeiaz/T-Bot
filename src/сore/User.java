@@ -16,16 +16,17 @@ public class User {
 
     public String userId;
     private HashMap<String, String> userDictInfo = new HashMap<>();
-    public String lastUserCommand;
-    public boolean isUserCommandEnded = true;
-    private String tmpUserInfo = null;
+    public UserState userState;
+
 
     //Плохо ли в конструкторе подгружать инфу?
     public User(String id) {
+        this.userState =  new UserState();
         this.userId = id;
         createUserDir();
         uploadUserInfo();
     }
+
 
     public boolean checkUserDir() {
         File file = new File(path.pathToUsers);
@@ -45,17 +46,6 @@ public class User {
         return file.exists();
     }
 
-    public void setTmpUserInfo(String value){
-        this.tmpUserInfo = value;
-    }
-
-    public void setNullTmpUserInfo(){
-        this.tmpUserInfo = null;
-    }
-
-    public String getTmpUserInfo(){
-        return this.tmpUserInfo;
-    }
 
     private void uploadUserInfo() {
         if (!checkUser(path.getPathToUser(userId))) {
