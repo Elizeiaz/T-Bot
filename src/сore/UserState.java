@@ -3,35 +3,33 @@ package сore;
 import java.util.HashMap;
 
 public class UserState {
-    private HashMap<String, String> userState = new HashMap<>();
-
-    UserState(){
-        userState.put("lastCommand", null);
-        userState.put("commandState", "ended");
-        userState.put("tmpUserInfo", null);
-    }
+    private String lastCommand;
+//    Состояние 0 - команда выполнена;
+//    Число отличное от 0 - Этап выполнения команды;
+    private int userState;
+    private String tmpUserInfo;
 
     public String getLastCommand() {
-        return userState.get("lastCommand");
+        return this.lastCommand;
     }
 
     public void setLastCommand(String value) {
-        userState.put("lastCommand", value);
+        this.lastCommand = value;
     }
 
-    public String getUserState() {
-        return userState.get("commandState");
+    public int getUserState() {
+        return this.userState;
     }
 
-    public void setUserState(String value) {
-        userState.put("commandState", value);
+    public void setUserState(int value) {
+        this.userState = value;
     }
 
     public String getTmpUserInfo() {
-        return userState.get("tmpUserInfo");
+        return this.tmpUserInfo;
     }
 
     public void setTmpUserInfo(String value) {
-        userState.put("tmpUserInfo", value);
+        this.tmpUserInfo = value;
     }
 }

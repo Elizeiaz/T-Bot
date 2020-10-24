@@ -1,4 +1,7 @@
+*.class
+
+
 .idea
 users
-/out
+out/
 /log/tmp/*
