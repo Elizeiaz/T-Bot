@@ -13,14 +13,14 @@ import java.util.logging.Logger;
 
 public class TelegramProvider extends TelegramLongPollingBot {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    User user;
+    private ClientHandler clientHandler = new ClientHandler();
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             ParseUserMassage userMessage = new ParseUserMassage(update);
-            ClientHandler clientHandler = new ClientHandler(this.user, userMessage);
-            String messageFromCommand = clientHandler.executeCommand();
+            clientHandler.selectUser(userMessage.getUserId());
+            String messageFromCommand = clientHandler.executeCommand(userMessage);
 
             SendMessage message = new SendMessage()
                     .setChatId(update.getMessage().getChatId())

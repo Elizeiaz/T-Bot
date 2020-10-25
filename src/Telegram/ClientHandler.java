@@ -5,28 +5,64 @@ import commands.CommandHandler;
 import сore.User;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class ClientHandler {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    private final User user;
-    private final CommandHandler commandHandler;
-    private final ParseUserMassage userMessage;
+    private HashMap<Integer, User> usersDict = new HashMap<>();
+    private User user;
+    private int maxCountUsers;
+//    private final CommandHandler commandHandler;
+//    private final ParseUserMassage userMessage;
 
-    public ClientHandler(User user, ParseUserMassage message) {
-        this.userMessage = message;
-        this.user = new User(message.getUserId());
-        this.commandHandler = new CommandHandler(user);
+    public ClientHandler() {
+        this.maxCountUsers = 30;
+//        this.userMessage = message;
+//        this.user = new User(message.getUserId());
+//        this.commandHandler = new CommandHandler(user);
     }
 
-    public String executeCommand() {
-        logger.info(String.valueOf(user.userState.getUserState()));
+    public void selectUser(int userId) {
+        addUser(userId);
+        clearUsersDict();
+        this.user = usersDict.get(userId);
+    }
+
+    public void addUser(int userId) {
+        if (!usersDict.containsKey(userId)){
+            usersDict.put(userId, new User(userId));
+        }
+    }
+
+    public void changeCountUsers(int count) {
+        if (count > 10) {
+            this.maxCountUsers = count;
+        }
+    }
+
+    private void clearUsersDict() {
+        if (usersDict.size() > this.maxCountUsers && !usersDict.isEmpty()) {
+            Integer[] users = usersDict.keySet().toArray(new Integer[usersDict.size()]);
+            int countForDelete = 0;
+
+            while (countForDelete < usersDict.size() && countForDelete < maxCountUsers){
+                if (usersDict.get(users[countForDelete]).userState.getUserState() != 0){
+                    usersDict.remove(users[countForDelete]);
+                    countForDelete += 1;
+                }
+            }
+        }
+    }
+
+    public String executeCommand(ParseUserMassage userMassage) {
+        CommandHandler commandHandler = new CommandHandler(this.user);
         if (user.userState.getUserState() == 0) {
-            user.userState.setLastCommand(userMessage.getMessage());
+            user.userState.setLastCommand(userMassage.getMessage());
         } else {
-            logger.info("!!!!!!!!!!!");
-            user.userState.setTmpUserInfo(userMessage.getMessage());
+            user.userState.setTmpUserInfo(userMassage.getMessage());
         }
 
         return commandHandler.doCommand(user.userState.getLastCommand());
