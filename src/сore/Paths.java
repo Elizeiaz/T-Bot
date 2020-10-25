@@ -11,8 +11,8 @@ public class Paths {
     public final String pathToTmp = new File(pathToLog, "tmp").toString();
     public final String pathToLogFile = new File(pathToTmp, "log_file.txt").toString();
 
-    public String getPathToUser(String id){
-        return new File(this.pathToUsers, id).toString();
+    public String getPathToUser(int id){
+        return new File(this.pathToUsers, String.valueOf(id)).toString();
 
     }
 }

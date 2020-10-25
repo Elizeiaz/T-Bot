@@ -7,8 +7,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import сore.User;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Scanner;
 import java.util.logging.*;
+import java.util.Date;
 
 public class Bot {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
@@ -29,37 +31,16 @@ public class Bot {
     }
 
     public static void main(String[] args) {
-        User user = new User("user");
-        CommandHandler command = new CommandHandler(user);
-        
-
-        user.userState.setLastCommand("/start");
-
+//        Запуск бота
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
             botsApi.registerBot(new TelegramProvider());
+
+            logger.info(MessageFormat.format("Telegram bot is started: {0}", new Date().toString()));
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Telegram start exception", e);
         }
-//        while (!user.userState.getLastCommand().equals("/exit")) {
-//            output(command.doCommand(user.userState.getLastCommand()));
-//
-//            if (user.userState.getUserState() == 0){
-//                user.userState.setLastCommand(input());
-//            } else {
-//                user.userState.setTmpUserInfo(input());
-//            }
-//        }
-    }
-
-    public static String input() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextLine();
-    }
-
-    public static void output(String message) {
-        System.out.println(message);
     }
 }
 

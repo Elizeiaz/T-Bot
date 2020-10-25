@@ -14,13 +14,13 @@ public class User {
     private final Paths path = new Paths();
     private final FileWorker fileWorker = new FileWorker();
 
-    public String userId;
+    public int userId;
     private HashMap<String, String> userDictInfo = new HashMap<>();
     public UserState userState;
 
 
     //Плохо ли в конструкторе подгружать инфу?
-    public User(String id) {
+    public User(int id) {
         this.userState =  new UserState();
         this.userId = id;
         createUserDir();
