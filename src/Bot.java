@@ -1,14 +1,11 @@
 import Telegram.TelegramProvider;
 import com.sun.tools.javac.Main;
-import commands.CommandHandler;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import сore.User;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Scanner;
 import java.util.logging.*;
 import java.util.Date;
 

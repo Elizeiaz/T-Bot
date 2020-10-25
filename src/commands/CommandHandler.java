@@ -1,7 +1,7 @@
 package commands;
 
 
-import сore.User;
+import core.User;
 
 import java.util.HashMap;
 

@@ -1,8 +1,8 @@
 package commands;
 
 
-import сore.FileWorker;
-import сore.Paths;
+import core.FileWorker;
+import core.Paths;
 
 public class Help implements Command {
     @Override

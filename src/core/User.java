@@ -1,4 +1,4 @@
-package сore;
+package core;
 
 import com.sun.tools.javac.Main;
 

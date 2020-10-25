@@ -1,6 +1,4 @@
-package сore;
-
-import java.util.HashMap;
+package core;
 
 public class UserState {
     private String lastCommand;

@@ -1,8 +1,7 @@
 package commands;
 
 import com.sun.tools.javac.Main;
-import commands.Command;
-import сore.User;
+import core.User;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

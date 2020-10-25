@@ -2,7 +2,7 @@ package commands;
 
 
 import com.sun.tools.javac.Main;
-import сore.User;
+import core.User;
 
 import java.util.HashMap;
 import java.util.StringJoiner;

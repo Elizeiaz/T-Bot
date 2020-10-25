@@ -2,11 +2,9 @@ package Telegram;
 
 import com.sun.tools.javac.Main;
 import commands.CommandHandler;
-import сore.User;
+import core.User;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Logger;
 
 public class ClientHandler {

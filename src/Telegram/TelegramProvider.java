@@ -6,7 +6,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import сore.User;
+import core.FileWorker;
+import core.Paths;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
 public class TelegramProvider extends TelegramLongPollingBot {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
     private ClientHandler clientHandler = new ClientHandler();
+    private final FileWorker fileWorker = new FileWorker();
+    private final Paths paths = new Paths();
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -40,6 +43,6 @@ public class TelegramProvider extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "1003156865:AAGHW-MmBXGKumExOj_ZVWvQELPpT6zaISU";
+        return fileWorker.readFile(paths.pathToToken);
     }
 }

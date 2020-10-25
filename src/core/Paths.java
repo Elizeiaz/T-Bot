@@ -1,4 +1,4 @@
-package сore;
+package core;
 
 import java.io.File;
 
@@ -10,6 +10,7 @@ public class Paths {
     public final String pathToLog = new File("log").toString();
     public final String pathToTmp = new File(pathToLog, "tmp").toString();
     public final String pathToLogFile = new File(pathToTmp, "log_file.txt").toString();
+    public final String pathToToken = new File("token.txt").toString();
 
     public String getPathToUser(int id){
         return new File(this.pathToUsers, String.valueOf(id)).toString();
