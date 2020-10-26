@@ -1,4 +1,4 @@
-import Telegram.TelegramProvider;
+import telegram.TelegramProvider;
 import com.sun.tools.javac.Main;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;

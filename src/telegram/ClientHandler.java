@@ -1,4 +1,4 @@
-package Telegram;
+package telegram;
 
 import com.sun.tools.javac.Main;
 import commands.CommandHandler;
@@ -44,9 +44,12 @@ public class ClientHandler {
     private void clearUsersDict() {
         if (usersDict.size() > this.maxCountUsers && !usersDict.isEmpty()) {
             Integer[] users = usersDict.keySet().toArray(new Integer[usersDict.size()]);
-            int countForDelete = 0;
+            int countForDelete = usersDict.size() - maxCountUsers;
+            if (countForDelete <= 0) {
+                countForDelete = 0;
+            }
 
-            while (countForDelete < usersDict.size() && countForDelete < maxCountUsers){
+            for (int i = 0; i < countForDelete; i++){
                 if (usersDict.get(users[countForDelete]).userState.getUserState() != 0){
                     usersDict.remove(users[countForDelete]);
                     countForDelete += 1;
