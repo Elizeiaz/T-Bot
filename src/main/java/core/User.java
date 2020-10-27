@@ -17,6 +17,7 @@ public class User {
     public int userId;
     private HashMap<String, String> userDictInfo = new HashMap<>();
     public UserState userState;
+    public UserStateEnum userStateEnum;
 
 
     //Плохо ли в конструкторе подгружать инфу?
@@ -25,6 +26,7 @@ public class User {
         this.userId = id;
         createUserDir();
         uploadUserInfo();
+        this.userStateEnum = UserStateEnum.ENDED;
     }
 
 

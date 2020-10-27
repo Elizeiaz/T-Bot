@@ -1,6 +1,7 @@
 package webParser;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.sun.tools.javac.Main;
@@ -35,11 +36,20 @@ public class WebParserTest {
 
 
     public void grepHtmlByClass(HtmlPage htmlPage, String xPathExpr) {
-
         logger.info(htmlPage.asXml());
-        logger.info(htmlPage.getByXPath("//div[@class='result-info']").toString());
-//        List<HtmlElement> items = (List<HtmlElement>) htmlPage.getByXPath(xPathExpr);
 
+        List<HtmlElement> items = htmlPage.getByXPath(xPathExpr);
+        if (items.isEmpty()){
+            logger.info("Elements not found");
+        } else {
 
+            logger.info(items.get(0).toString());
+//            for (HtmlElement item : items){
+//                String brandName = item.asXml();
+//
+////                HtmlAnchor itemAnchor = item.getFirstByXPath(".//div");
+////                logger.info(itemAnchor.asText());
+//            }
+        }
     }
 }

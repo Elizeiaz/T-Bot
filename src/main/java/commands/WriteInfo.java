@@ -2,6 +2,8 @@ package commands;
 
 import com.sun.tools.javac.Main;
 import core.User;
+import core.UserStateEnum;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,15 +13,15 @@ public class WriteInfo implements Command {
 
     @Override
     public String execute() {
-        switch (user.userState.getUserState()){
-            case (0):
-                user.userState.setUserState(1);
+        switch (user.userStateEnum){
+            case ENDED:
+                user.userStateEnum = UserStateEnum.NEED_ARGUMENTS;
                 return "Введите данные по типу: ключ=значение";
             default:
                 if (!pillUserInfo(user.userState.getTmpUserInfo())){
                     return "Неккоректный ввод данных\nВведите данные по типу: ключ=значение";
                 }
-                user.userState.setUserState(0);
+                user.userStateEnum = UserStateEnum.ENDED;
                 return "Информация успешно добавлена";
         }
     }

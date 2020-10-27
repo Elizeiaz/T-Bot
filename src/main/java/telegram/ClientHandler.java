@@ -3,6 +3,7 @@ package telegram;
 import com.sun.tools.javac.Main;
 import commands.CommandHandler;
 import core.User;
+import core.UserStateEnum;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -11,22 +12,16 @@ public class ClientHandler {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     private HashMap<Integer, User> usersDict = new HashMap<>();
-    private User user;
     private int maxCountUsers;
-//    private final CommandHandler commandHandler;
-//    private final ParseUserMassage userMessage;
 
     public ClientHandler() {
         this.maxCountUsers = 30;
-//        this.userMessage = message;
-//        this.user = new User(message.getUserId());
-//        this.commandHandler = new CommandHandler(user);
     }
 
-    public void selectUser(int userId) {
+    public User selectUser(int userId) {
         addUser(userId);
         clearUsersDict();
-        this.user = usersDict.get(userId);
+        return usersDict.get(userId);
     }
 
     public void addUser(int userId) {
@@ -50,7 +45,7 @@ public class ClientHandler {
             }
 
             for (int i = 0; i < countForDelete; i++){
-                if (usersDict.get(users[countForDelete]).userState.getUserState() != 0){
+                if (usersDict.get(users[countForDelete]).userStateEnum != UserStateEnum.ENDED){
                     usersDict.remove(users[countForDelete]);
                     countForDelete += 1;
                 }
@@ -58,9 +53,10 @@ public class ClientHandler {
         }
     }
 
-    public String executeCommand(ParseUserMassage userMassage) {
-        CommandHandler commandHandler = new CommandHandler(this.user);
-        if (user.userState.getUserState() == 0) {
+    public String executeCommand(int userId, ParseUserMessage userMassage) {
+        User user = selectUser(userId);
+        CommandHandler commandHandler = new CommandHandler(user);
+        if (user.userStateEnum == UserStateEnum.ENDED) {
             user.userState.setLastCommand(userMassage.getMessage());
         } else {
             user.userState.setTmpUserInfo(userMassage.getMessage());

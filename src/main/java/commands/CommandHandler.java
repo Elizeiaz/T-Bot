@@ -2,6 +2,7 @@ package commands;
 
 
 import core.User;
+import core.UserStateEnum;
 
 import java.util.HashMap;
 
@@ -20,7 +21,7 @@ public class CommandHandler {
     }
 
     public String doCommand(String curCommand) {
-        if (user.userState.getUserState() == 0 && !this.commandDict.containsKey(curCommand)) {
+        if (user.userStateEnum == UserStateEnum.ENDED && !this.commandDict.containsKey(curCommand)) {
             return commandDict.get("UnexpectedCommand").execute();
         }
         return commandDict.get(curCommand).execute();

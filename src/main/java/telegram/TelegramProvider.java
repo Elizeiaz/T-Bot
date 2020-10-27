@@ -21,9 +21,8 @@ public class TelegramProvider extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            ParseUserMassage userMessage = new ParseUserMassage(update);
-            clientHandler.selectUser(userMessage.getUserId());
-            String messageFromCommand = clientHandler.executeCommand(userMessage);
+            ParseUserMessage userMessage = new ParseUserMessage(update);
+            String messageFromCommand = clientHandler.executeCommand(userMessage.getUserId(), userMessage);
 
             SendMessage message = new SendMessage()
                     .setChatId(update.getMessage().getChatId())
