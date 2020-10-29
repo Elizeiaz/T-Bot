@@ -1,55 +1,48 @@
 package webParser;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.sun.tools.javac.Main;
 
-import javax.xml.xpath.XPathExpression;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.MessageFormat;
+import com.sun.tools.javac.Main;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class WebParserTest {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    WebClient webClient = new WebClient();
-
-    public HtmlPage getHtmlXml(String searchUrl) {
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setJavaScriptEnabled(false);
-        HtmlPage htmlPage = null;
-
+    public Document getHtml(String searchUrl) {
+        Document htmlPage = null;
         try {
-            htmlPage = webClient.getPage(searchUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
+            htmlPage = Jsoup.connect(searchUrl).get();
+        } catch (Exception e){
+            logger.log(Level.INFO, "Get html error:", e);
         }
-
         return htmlPage;
     }
 
+    public Elements putItemsInContainer (Document htmlPage, String cssQuery){
+        return htmlPage.select(cssQuery);
+    }
 
-    public void grepHtmlByClass(HtmlPage htmlPage, String xPathExpr) {
-        logger.info(htmlPage.asXml());
+    public String grepHtmlByClass(Element htmlPage, String className) {
+        return htmlPage.getElementsByClass(className).text();
+    }
 
-        List<HtmlElement> items = htmlPage.getByXPath(xPathExpr);
-        if (items.isEmpty()){
-            logger.info("Elements not found");
-        } else {
+    public String grepHtmlByTag(Element htmlPage, String tagName) {
+        return htmlPage.getElementsByTag(tagName).text();
+    }
 
-            logger.info(items.get(0).toString());
-//            for (HtmlElement item : items){
-//                String brandName = item.asXml();
-//
-////                HtmlAnchor itemAnchor = item.getFirstByXPath(".//div");
-////                logger.info(itemAnchor.asText());
-//            }
-        }
+    public String grepHtmlByID(Element htmlPage, String idName) {
+        return htmlPage.getElementsByTag(idName).text();
+    }
+
+    public String grepHtmlByAttribute(Element htmlPage, String attributeName) {
+        return htmlPage.getElementsByAttribute(attributeName).text();
     }
 }
