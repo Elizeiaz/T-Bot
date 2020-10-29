@@ -26,7 +26,7 @@ public class WebParserTest {
         return htmlPage;
     }
 
-    public Elements putItemsInContainer (Document htmlPage, String cssQuery){
+    public Elements putInContainer(Document htmlPage, String cssQuery){
         return htmlPage.select(cssQuery);
     }
 

@@ -1,12 +1,9 @@
 import com.sun.tools.javac.Main;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import webParser.WebParserTest;
+import core.JSONHandler;
+import webParser.Item;
 
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.*;
 
 public class Bot {
@@ -29,7 +26,9 @@ public class Bot {
 
     public static void main(String[] args) {
 
-
+        JSONHandler jsonHandler = new JSONHandler();
+        Item item = new Item();
+//        logger.info(jsonHandler.readJSON("{\"name\": \"Mahesh\", \"age\": 21}").toString());
 //        String searchUrl = "https://www.farfetch.com/ru/shopping/men/shoes-2/items.aspx";
 //
 //        WebParserTest webParser = new WebParserTest();
@@ -38,6 +37,8 @@ public class Bot {
 //        for (Element item : items){
 //            logger.info(webParser.grepHtmlByClass(item, "_346238"));
 //        }
+
+
 
 //        Запуск бота
 //        ApiContextInitializer.init();

@@ -1,15 +1,15 @@
 package webParser;
 
 public class Item {
-    String siteName;
-    String siteUrl;
+    public String siteName;
+    public String siteUrl;
 
-    String category;
+    public String category;
 
-    String brand;
-    String itemName;
-    String url;
-    String photoUrl;
-    int price;
-    int salePrice;
+    public String brand;
+    public String itemName;
+    public String url;
+    public String photoUrl;
+    public int price;
+    public int salePrice;
 }
