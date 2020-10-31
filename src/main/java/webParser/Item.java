@@ -2,7 +2,7 @@ package webParser;
 
 import core.JSONHandler;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class Item {
     JSONHandler jsonHandler = new JSONHandler();
@@ -14,10 +14,10 @@ public class Item {
 
     public String brand = "";
     public String itemName = "";
-    public String url = "";
+    public String itemUrl = "";
     public String photoUrl = "";
     public int price = 999999;
-    public int discountPrice = 999999;
+    public int discountPrice = this.price;
 
 //    public Item(HashMap<String, String> itemDict) {
 //        for (String value : itemDict.keySet()) {
@@ -50,8 +50,9 @@ public class Item {
             CategoryEnum category,
             String brand,
             String itemName,
-            String url,
+            String itemUrl,
             String photoUrl,
+            List<Float> sizes,
             int price,
             int discountPrice
     ) {
@@ -60,9 +61,24 @@ public class Item {
         this.category = category;
         this.brand = brand;
         this.itemName = itemName;
-        this.url = url;
+        this.itemUrl = itemUrl;
         this.photoUrl = photoUrl;
         this.price = price;
         this.discountPrice = discountPrice;
     }
+
+    public Item(
+            String siteName,
+            String siteUrl,
+            CategoryEnum category
+    ) {
+        this.siteName = siteName;
+        this.siteUrl = siteUrl;
+        this.category = category;
+    }
+
+    public boolean setField(String fieldName, String setValue){
+        return false;
+    }
+
 }

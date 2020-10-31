@@ -24,7 +24,6 @@ public class WebParser {
             logger.log(Level.INFO, "Get html error:", e);
         }
 
-        logger.info(htmlPage.toString());
         return htmlPage;
     }
 
@@ -32,13 +31,38 @@ public class WebParser {
         return htmlPage.select(cssQuery);
     }
 
-    public String grepHtmlEmenent(Element htmlPage, String elementName, HtmlSelectorEnum htmlSelector){
+    public String grepHtmlEmenent(Element htmlPage, String elementName, HtmlSelectorEnum htmlSelector) {
         return switch (htmlSelector) {
             case CLASS -> grepHtmlByClass(htmlPage, elementName);
             case ID -> grepHtmlByID(htmlPage, elementName);
             case TAG -> grepHtmlByTag(htmlPage, elementName);
             case ATTRIB -> grepHtmlByAttribute(htmlPage, elementName);
         };
+    }
+
+    public String grepUrl(Element htmlPage, String attrName, HtmlSelectorEnum selectorEnum, String urlAttrName) {
+        Element element = null;
+        switch (selectorEnum){
+            case CLASS:
+                element = htmlPage.getElementsByClass(attrName).first();
+                break;
+            case ID:
+                element = htmlPage.getElementById(attrName);
+                break;
+            case TAG:
+                element = htmlPage.getElementsByTag(attrName).first();
+                break;
+            case ATTRIB:
+                element = htmlPage.getElementsByAttribute(attrName).first();
+                break;
+        }
+
+        if (element == null){
+            return null;
+        }
+
+        String url = element.attr(urlAttrName);
+        return url;
     }
 
     public String grepHtmlByClass(Element htmlPage, String className) {
@@ -50,7 +74,7 @@ public class WebParser {
     }
 
     public String grepHtmlByID(Element htmlPage, String idName) {
-        return htmlPage.getElementsByTag(idName).text();
+        return htmlPage.getElementById(idName).text();
     }
 
     public String grepHtmlByAttribute(Element htmlPage, String attributeName) {

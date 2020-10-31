@@ -1,10 +1,5 @@
 import com.sun.tools.javac.Main;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import webParser.HtmlSelector;
-import webParser.HtmlSelectorEnum;
-import webParser.ParserSelector;
-import webParser.WebParser;
+import sites.Yoox;
 
 
 import java.io.IOException;
@@ -30,13 +25,10 @@ public class Bot {
 
     public static void main(String[] args) {
 //        String searchUrl = "https://www.farfetch.com/ru/shopping/men/shoes-2/items.aspx";
-        String searchUrl = "https://www.nike.com/ru/w/mens-shoes-nik1zy7ok";
-        WebParser webParser = new WebParser();
-        Elements items = webParser.putInContainer(webParser.getHtml(searchUrl), "a[class=_5ce6f6]");
-
-        for (Element item : items){
-            logger.info(webParser.grepHtmlByClass(item, "_346238"));
-        }
+//        Farfetch farfetch = new Farfetch();
+//        farfetch.startParse();
+        Yoox yoox = new Yoox();
+        yoox.startParse();
 
 
 //        Запуск бота
