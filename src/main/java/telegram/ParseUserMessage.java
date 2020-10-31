@@ -12,7 +12,7 @@ public class ParseUserMessage {
     private final int userId;
     private final String message;
 
-    public ParseUserMessage(Update update){
+    public ParseUserMessage(Update update) {
         this.userId = update.getMessage().getFrom().getId();
         this.message = update.getMessage().getText();
         logger.fine(MessageFormat.format("User Id: {0}, User Message: {1}", this.userId, this.message));

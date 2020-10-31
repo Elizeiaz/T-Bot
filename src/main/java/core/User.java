@@ -22,7 +22,7 @@ public class User {
 
     //Плохо ли в конструкторе подгружать инфу?
     public User(int id) {
-        this.userState =  new UserState();
+        this.userState = new UserState();
         this.userId = id;
         createUserDir();
         uploadUserInfo();

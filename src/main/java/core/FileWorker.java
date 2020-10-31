@@ -19,16 +19,17 @@ public class FileWorker {
             FileOutputStream out = new FileOutputStream(path);
             out.write(text.getBytes());
             out.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.log(Level.WARNING, "IOException: ", e);
         }
 
     }
+
     public boolean writeFile(String path) {
         try {
             File file = new File(path);
             return file.createNewFile();
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.log(Level.WARNING, "IOException: ", e);
             return false;
         }
@@ -48,7 +49,7 @@ public class FileWorker {
             read.close();
 
             return result.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.log(Level.WARNING, "IOException: ", e);
             return null;
         }

@@ -25,7 +25,7 @@ public class ClientHandler {
     }
 
     public void addUser(int userId) {
-        if (!usersDict.containsKey(userId)){
+        if (!usersDict.containsKey(userId)) {
             usersDict.put(userId, new User(userId));
         }
     }
@@ -44,8 +44,8 @@ public class ClientHandler {
                 countForDelete = 0;
             }
 
-            for (int i = 0; i < countForDelete; i++){
-                if (usersDict.get(users[countForDelete]).userStateEnum != UserStateEnum.ENDED){
+            for (int i = 0; i < countForDelete; i++) {
+                if (usersDict.get(users[countForDelete]).userStateEnum != UserStateEnum.ENDED) {
                     usersDict.remove(users[countForDelete]);
                     countForDelete += 1;
                 }

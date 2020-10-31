@@ -12,7 +12,7 @@ public class Paths {
     public final String pathToLogFile = new File(pathToTmp, "log_file.txt").toString();
     public final String pathToToken = new File("token.txt").toString();
 
-    public String getPathToUser(int id){
+    public String getPathToUser(int id) {
         return new File(this.pathToUsers, String.valueOf(id)).toString();
 
     }

@@ -17,39 +17,39 @@ public class JSONHandler {
     ObjectMapper mapper = new ObjectMapper();
     JsonFactory jsonFactory = new JsonFactory();
 
-    public String objectToJson(Object objectName){
+    public String objectToJson(Object objectName) {
         String jsonObject = null;
         try {
             jsonObject = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectName);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Can't serialize object to JSON", e);
         }
 
         return jsonObject;
     }
 
-    public Object jsonToObject(String jsonString, Object objectName){
+    public Object jsonToObject(String jsonString, Object objectName) {
         Object newObjectFromJSON = null;
         try {
             newObjectFromJSON = mapper.readValue(jsonString, Item.class);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Can't realize JSON to object");
         }
 
         return newObjectFromJSON;
     }
 
-    public HashMap<String, String> readJSON(String JSONString){
+    public HashMap<String, String> readJSON(String JSONString) {
         HashMap<String, String> JSONDict = new HashMap<>();
         try {
             JsonParser jsonParser = jsonFactory.createParser(JSONString);
             jsonParser.nextToken();
 
-            while (jsonParser.nextToken() != JsonToken.END_OBJECT){
+            while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
                 jsonParser.nextToken();
                 JSONDict.put(jsonParser.getCurrentName(), jsonParser.getText());
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Can't read JSONString", e);
         }
 

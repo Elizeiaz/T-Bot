@@ -13,12 +13,12 @@ public class WriteInfo implements Command {
 
     @Override
     public String execute() {
-        switch (user.userStateEnum){
+        switch (user.userStateEnum) {
             case ENDED:
                 user.userStateEnum = UserStateEnum.NEED_ARGUMENTS;
                 return "Введите данные по типу: ключ=значение";
             default:
-                if (!pillUserInfo(user.userState.getTmpUserInfo())){
+                if (!pillUserInfo(user.userState.getTmpUserInfo())) {
                     return "Неккоректный ввод данных\nВведите данные по типу: ключ=значение";
                 }
                 user.userStateEnum = UserStateEnum.ENDED;
@@ -26,7 +26,7 @@ public class WriteInfo implements Command {
         }
     }
 
-    public WriteInfo(User user){
+    public WriteInfo(User user) {
         this.user = user;
     }
 
