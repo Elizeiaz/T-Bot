@@ -43,7 +43,11 @@ public abstract class AbstructSite {
         if (isJSONParser()) {
             return jsonParser();
         } else {
-            return htmlParser();
+            htmlParser();
+            for (String item : itemsToJSON()){
+                logger.info(item);
+            }
+            return false;
         }
     }
 
@@ -109,11 +113,31 @@ public abstract class AbstructSite {
                                 parserSelector.getPrice().getHtmlTag())
                 );
 
-                //No price - no item
-                if (!matcherForPrice.find()) {
-                    continue;
+
+                int price = 0;
+                if (matcherForPrice.find()) {
+                    price = Integer.parseInt(matcherForPrice.group().replaceAll("[ ,.]", ""));
                 }
-                int price = Integer.parseInt(matcherForPrice.group().replaceAll("[ ,.]", ""));
+
+                //grep fullPrice
+                Matcher matcherForFullPrice = numberRegExp.matcher(
+                        webParser.grepHtmlEmenent(itemContainer,
+                                parserSelector.getFullPrice().getTagName(),
+                                parserSelector.getFullPrice().getHtmlTag())
+                );
+
+
+                int fullPrice = 0;
+                if (matcherForFullPrice.find()) {
+                    price = Integer.parseInt(matcherForFullPrice.group().replaceAll("[ ,.]", ""));
+                }
+
+                //No price - no item
+                if (price == 0 && fullPrice == 0){
+                    continue;
+                } else if (price == 0){
+                    price = fullPrice;
+                }
 
                 //grep discount price
                 Matcher matcherForDiscountPrice = numberRegExp.matcher(
@@ -147,9 +171,19 @@ public abstract class AbstructSite {
     }
 
     private boolean saveItem(Item item) {
-        JSONHandler jsonHandler = new JSONHandler();
-        logger.info(jsonHandler.objectToJson(item));
         //todo saveItems in db
         return itemList.add(item);
+    }
+
+    public List<String> itemsToJSON(){
+        JSONHandler jsonHandler = new JSONHandler();
+        List<String> jsonList = new ArrayList<>();
+
+        for (Item item : itemList){
+
+            jsonList.add(jsonHandler.objectToJson(item));
+        }
+
+        return jsonList;
     }
 }
