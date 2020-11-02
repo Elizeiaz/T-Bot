@@ -21,7 +21,7 @@ public class WebParser {
         try {
             htmlPage = Jsoup.connect(searchUrl).get();
         } catch (Exception e) {
-            logger.log(Level.INFO, "Get html error:", e);
+            return null;
         }
 
         return htmlPage;

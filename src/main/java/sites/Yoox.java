@@ -5,6 +5,10 @@ import webParser.*;
 import java.util.HashMap;
 
 public class Yoox extends AbstructSite {
+    public Yoox(HashMap<String, CategoryEnum> urlsForParse) {
+        super(urlsForParse);
+    }
+
     @Override
     public String getSiteName() {
         return "Yoox";
@@ -13,13 +17,6 @@ public class Yoox extends AbstructSite {
     @Override
     public String getSiteUrl() {
         return "https://www.yoox.com/";
-    }
-
-    @Override
-    public HashMap<String, CategoryEnum> getUrlsForParse() {
-        HashMap<String, CategoryEnum> urlsDict = new HashMap<>();
-        urlsDict.put("https://www.yoox.com/ru/%D0%B4%D0%BB%D1%8F%20%D0%BC%D1%83%D0%B6%D1%87%D0%B8%D0%BD/shoponline?dept=salemen#/dept=salemen&gender=U&page=1&attributes=%7b%27ctgr%27%3a%5b%27snkrs5%27%5d%7d&season=X", CategoryEnum.SNEAKERS);
-        return urlsDict;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class Yoox extends AbstructSite {
     }
 
     @Override
-    public String getNextPage() {
-        return null;
+    public String setNextPageIdentifyer() {
+        return "page=";
     }
 }

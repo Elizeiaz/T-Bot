@@ -6,6 +6,10 @@ import java.util.HashMap;
 
 public class Farfetch extends AbstructSite {
 
+    public Farfetch(HashMap<String, CategoryEnum> urlsForParse) {
+        super(urlsForParse);
+    }
+
     @Override
     public String getSiteName() {
         return "Farfetch";
@@ -14,13 +18,6 @@ public class Farfetch extends AbstructSite {
     @Override
     public String getSiteUrl() {
         return "https://www.farfetch.com/";
-    }
-
-    @Override
-    public HashMap<String, CategoryEnum> getUrlsForParse() {
-        HashMap<String, CategoryEnum> urlsDict = new HashMap<>();
-        urlsDict.put("https://www.farfetch.com/ru/shopping/men/trainers-2/items.aspx", CategoryEnum.SNEAKERS);
-        return urlsDict;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class Farfetch extends AbstructSite {
     }
 
     @Override
-    public String getNextPage() {
+    public String setNextPageIdentifyer() {
         return null;
     }
 }

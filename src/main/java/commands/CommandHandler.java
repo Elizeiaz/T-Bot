@@ -18,6 +18,7 @@ public class CommandHandler {
         this.commandDict.put("UnexpectedCommand", new UnexpectedCommand());
         this.commandDict.put("/write", new WriteInfo(user));
         this.commandDict.put("/read", new ReadInfo(user));
+        this.commandDict.put("/random", new RandomItem());
     }
 
     public String doCommand(String curCommand) {

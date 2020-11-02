@@ -1,8 +1,15 @@
 import com.sun.tools.javac.Main;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import sites.UrlsForParse;
 import sites.Yoox;
+import telegram.TelegramProvider;
 
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.logging.*;
 
 public class Bot {
@@ -24,23 +31,16 @@ public class Bot {
     }
 
     public static void main(String[] args) {
-//        String searchUrl = "https://www.farfetch.com/ru/shopping/men/shoes-2/items.aspx";
-//        Farfetch farfetch = new Farfetch();
-//        farfetch.startParse();
-        Yoox yoox = new Yoox();
-        yoox.startParse();
-
-
 //        Запуск бота
-//        ApiContextInitializer.init();
-//        TelegramBotsApi botsApi = new TelegramBotsApi();
-//        try {
-//            botsApi.registerBot(new TelegramProvider());
-//
-//            logger.info(MessageFormat.format("Telegram bot is started: {0}", new Date().toString()));
-//        } catch (TelegramApiException e) {
-//            logger.log(Level.WARNING, "Telegram start exception", e);
-//        }
+        ApiContextInitializer.init();
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+        try {
+            botsApi.registerBot(new TelegramProvider());
+
+            logger.info(MessageFormat.format("Telegram bot is started: {0}", new Date().toString()));
+        } catch (TelegramApiException e) {
+            logger.log(Level.WARNING, "Telegram start exception", e);
+        }
     }
 }
 

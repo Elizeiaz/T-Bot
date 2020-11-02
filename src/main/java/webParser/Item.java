@@ -2,22 +2,25 @@ package webParser;
 
 import core.JSONHandler;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Item {
     JSONHandler jsonHandler = new JSONHandler();
 
-    public String siteName = "";
-    public String siteUrl = "";
+    private String siteName = "";
+    private String siteUrl = "";
 
-    public CategoryEnum category = CategoryEnum.NULL;
+    private CategoryEnum category = CategoryEnum.NULL;
 
-    public String brand = "";
-    public String itemName = "";
-    public String itemUrl = "";
-    public String photoUrl = "";
-    public int price = 999999;
-    public int discountPrice = this.price;
+    private String brand = "";
+    private String itemName = "";
+    private String itemUrl = "";
+    private String photoUrl = "";
+    private List<Float> sizes;
+    private int price = 999999;
+    private int discountPrice = this.price;
 
 //    public Item(HashMap<String, String> itemDict) {
 //        for (String value : itemDict.keySet()) {
@@ -47,6 +50,16 @@ public class Item {
     public Item(
             String siteName,
             String siteUrl,
+            CategoryEnum category
+    ) {
+        this.siteName = siteName;
+        this.siteUrl = siteUrl;
+        this.category = category;
+    }
+
+    public Item(
+            String siteName,
+            String siteUrl,
             CategoryEnum category,
             String brand,
             String itemName,
@@ -63,22 +76,78 @@ public class Item {
         this.itemName = itemName;
         this.itemUrl = itemUrl;
         this.photoUrl = photoUrl;
+        this.sizes = sizes;
         this.price = price;
         this.discountPrice = discountPrice;
     }
 
-    public Item(
-            String siteName,
-            String siteUrl,
-            CategoryEnum category
-    ) {
-        this.siteName = siteName;
-        this.siteUrl = siteUrl;
-        this.category = category;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public boolean setField(String fieldName, String setValue){
-        return false;
+    public String getSiteUrl() {
+        return siteUrl;
     }
 
+    public CategoryEnum getCategory() {
+        return category;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public String getItemUrl() {
+        return itemUrl;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public List<Float> getSizes() {
+        return sizes;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public String itemToString() {
+        StringJoiner outString = new StringJoiner("\n");
+        StringJoiner sizeString = new StringJoiner("  ");
+        Double discount =  100 - ((double) this.getDiscountPrice() / this.getPrice() * 100);
+        for (Float size : sizes){
+            String strSize = size.toString();
+            if (strSize.charAt(strSize.length() - 1) == '0'){
+                sizeString.add(String.valueOf((int) Math.floor(size)));
+            } else {
+                sizeString.add(String.format("%.1f", size));
+            }
+        }
+
+        outString.add(this.brand);
+        if (!this.brand.equals(this.itemName)) {outString.add("Модель: " + this.itemName);}
+        if (this.price == this.discountPrice) {
+            outString.add("Цена " + this.price);
+            } else {
+            outString.add("Старая цена: " + this.price + "руб");
+            outString.add("Цена со скидкой: " + this.discountPrice + "руб");
+            outString.add("Ваша скидка: " + String.format("%.0f", discount) + "%");
+        }
+        if (!sizeString.toString().equals("")) {outString.add("Доступные размеры: " + sizeString.toString());}
+        outString.add("");
+        outString.add("Сайт: " + this.siteName);
+        outString.add("Ссылка: " + this.itemUrl);
+
+        return outString.toString();
+    }
 }
