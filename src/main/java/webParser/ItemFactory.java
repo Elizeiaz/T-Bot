@@ -17,7 +17,7 @@ public class ItemFactory {
     public Item createNewItem(
             String siteName,
             String siteUrl,
-            CategoryEnum category,
+            ItemCategoryEnum category,
             String brand,
             String itemName,
             String itemUrl,

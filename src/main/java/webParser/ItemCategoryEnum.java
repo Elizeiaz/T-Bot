@@ -1,6 +1,6 @@
 package webParser;
 
-public enum  CategoryEnum {
+public enum ItemCategoryEnum {
     SNEAKERS,
     PERFUM,
     ACCESSORIES,

@@ -2,14 +2,7 @@ package sites;
 
 import webParser.*;
 
-import java.util.HashMap;
-
-public class Farfetch extends AbstructSite {
-
-    public Farfetch(HashMap<String, CategoryEnum> urlsForParse) {
-        super(urlsForParse);
-    }
-
+public class Farfetch extends HtmlParser {
     @Override
     public String getSiteName() {
         return "Farfetch";
@@ -18,11 +11,6 @@ public class Farfetch extends AbstructSite {
     @Override
     public String getSiteUrl() {
         return "https://www.farfetch.com/";
-    }
-
-    @Override
-    public boolean isJSONParser() {
-        return false;
     }
 
     @Override

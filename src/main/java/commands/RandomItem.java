@@ -19,12 +19,13 @@ public class RandomItem implements Command {
     }
 
     public String getRandomItem(){
-        UrlsForParse urlsForParse = new UrlsForParse();
-        Yoox yoox = new Yoox(urlsForParse.getYoox());
-        yoox.startParse();
-
-        int randomInt = random.nextInt(yoox.itemCount());
-        Item item = yoox.getItem(randomInt);
-        return item.itemToString();
+//        UrlsForParse urlsForParse = new UrlsForParse();
+//        Yoox yoox = new Yoox(urlsForParse.getYoox());
+//        yoox.startParse();
+//
+//        int randomInt = random.nextInt(yoox.itemCount());
+//        Item item = yoox.getItem(randomInt);
+//        return item.itemToString();
+        return null;
     }
 }

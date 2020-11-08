@@ -2,13 +2,7 @@ package sites;
 
 import webParser.*;
 
-import java.util.HashMap;
-
-public class Yoox extends AbstructSite {
-    public Yoox(HashMap<String, CategoryEnum> urlsForParse) {
-        super(urlsForParse);
-    }
-
+public class Yoox extends HtmlParser {
     @Override
     public String getSiteName() {
         return "Yoox";
@@ -17,11 +11,6 @@ public class Yoox extends AbstructSite {
     @Override
     public String getSiteUrl() {
         return "https://www.yoox.com/";
-    }
-
-    @Override
-    public boolean isJSONParser() {
-        return false;
     }
 
     @Override

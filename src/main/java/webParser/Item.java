@@ -2,7 +2,6 @@ package webParser;
 
 import core.JSONHandler;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -12,7 +11,7 @@ public class Item {
     private String siteName = "";
     private String siteUrl = "";
 
-    private CategoryEnum category = CategoryEnum.NULL;
+    private ItemCategoryEnum category = ItemCategoryEnum.NULL;
 
     private String brand = "";
     private String itemName = "";
@@ -50,7 +49,7 @@ public class Item {
     public Item(
             String siteName,
             String siteUrl,
-            CategoryEnum category
+            ItemCategoryEnum category
     ) {
         this.siteName = siteName;
         this.siteUrl = siteUrl;
@@ -60,7 +59,7 @@ public class Item {
     public Item(
             String siteName,
             String siteUrl,
-            CategoryEnum category,
+            ItemCategoryEnum category,
             String brand,
             String itemName,
             String itemUrl,
@@ -89,7 +88,7 @@ public class Item {
         return siteUrl;
     }
 
-    public CategoryEnum getCategory() {
+    public ItemCategoryEnum getCategory() {
         return category;
     }
 
