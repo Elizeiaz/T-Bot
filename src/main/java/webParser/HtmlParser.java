@@ -1,10 +1,17 @@
 package webParser;
 
+import com.sun.tools.javac.Main;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sites.URIForParse;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class HtmlParser extends AbstractParser {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     private final ParserSelector parserSelector = setParserSelector();
     private final ItemFactory itemFactory = new ItemFactory();
 
@@ -19,11 +26,32 @@ public abstract class HtmlParser extends AbstractParser {
     abstract public String setNextPageIdentifyer();
 
     @Override
-    public boolean startParse() {
-        return false;
+    public boolean startParse(List<URIForParse> urisForParse) {
+        boolean isParsed = false;
+        for (URIForParse uri : urisForParse) {
+            while (true) {
+                logger.info(uri.getUri());
+                logger.info(Integer.toString(itemCount()));
+                Document html = getHtmlPage(uri.getUri());
+                if (html == null){
+                    break;
+                }
+                boolean curIsParsed = htmlParser(html, uri.getCategory());
+                if (!curIsParsed) {
+                    break;
+                }
+                isParsed = true;
+                uri.setUri(toNextPage(uri.getUri()));
+
+            }
+        }
+
+        return isParsed;
     }
 
     public boolean htmlParser(Document html, ItemCategoryEnum category) {
+        logger.fine("Start parsing " + html.location());
+
         boolean isItemParsed = false;
         Elements htmlItemContainers = putInContainer(html, setItemContainer());
 
@@ -33,7 +61,7 @@ public abstract class HtmlParser extends AbstractParser {
 
         for (Element htmlItemContainer : htmlItemContainers) {
             Item item = parseItem(htmlItemContainer, category);
-            //Price not parsed
+            //Some important item fields not found
             if (item == null) {
                 continue;
             }

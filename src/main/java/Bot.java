@@ -1,15 +1,12 @@
 import com.sun.tools.javac.Main;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import sites.UrlsForParse;
+import sites.URIForParse;
 import sites.Yoox;
-import telegram.TelegramProvider;
+import webParser.ItemCategoryEnum;
 
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.*;
 
 public class Bot {
@@ -31,16 +28,26 @@ public class Bot {
     }
 
     public static void main(String[] args) {
-//        Запуск бота
-        ApiContextInitializer.init();
-        TelegramBotsApi botsApi = new TelegramBotsApi();
-        try {
-            botsApi.registerBot(new TelegramProvider());
+        List<URIForParse> uris = new ArrayList<>();
+        URIForParse uri = new URIForParse(
+                "https://www.yoox.com/RU/shoponline?dept=samplesaleman&gender=U&page=1&clientabt=SmsMultiChannel_ON%2CSrRecommendations_ON%2CRecentlyViewed_ON%2CRecentlyViewedItemPage_ON%2CmyooxNew_ON%2CImageFormatB_ON%2COnePageCheckout_ON",
+                ItemCategoryEnum.SNEAKERS
+        );
+        uris.add(uri);
 
-            logger.info(MessageFormat.format("Telegram bot is started: {0}", new Date().toString()));
-        } catch (TelegramApiException e) {
-            logger.log(Level.WARNING, "Telegram start exception", e);
-        }
+        Yoox yoox = new Yoox();
+        yoox.startParse(uris);
+
+//        Запуск бота
+//        ApiContextInitializer.init();
+//        TelegramBotsApi botsApi = new TelegramBotsApi();
+//        try {
+//            botsApi.registerBot(new TelegramProvider());
+//
+//            logger.info(MessageFormat.format("Telegram bot is started: {0}", new Date().toString()));
+//        } catch (TelegramApiException e) {
+//            logger.log(Level.WARNING, "Telegram start exception", e);
+//        }
     }
 }
 
