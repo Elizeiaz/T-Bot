@@ -2,38 +2,38 @@ package sites;
 
 import webParser.*;
 
-public class Farfetch extends HtmlParser {
+public class Farfetch extends HTMLParser {
     @Override
     public String getSiteName() {
         return "Farfetch";
     }
 
     @Override
-    public String getSiteUrl() {
+    public String getSiteURI() {
         return "https://www.farfetch.com/";
     }
 
     @Override
-    public String setItemContainer() {
+    public String getItemContainerHTMLSelector() {
         return "li[class='_0a5d39 _d85b45']";
     }
 
     @Override
-    public ParserSelector setParserSelector() {
-        return new ParserSelector(
-                new HtmlTag("_346238", HtmlSelectorEnum.CLASS),
-                new HtmlTag("_d85b45", HtmlSelectorEnum.CLASS),
-                new UrlTag("_d85b45", HtmlSelectorEnum.CLASS, "href"),
-                new UrlTag("_d85b45", HtmlSelectorEnum.CLASS, "src"),
-                new HtmlTag("_5cf853", HtmlSelectorEnum.CLASS),
-                new HtmlTag("_5cf853", HtmlSelectorEnum.CLASS),
-                new HtmlTag("_ad18db", HtmlSelectorEnum.CLASS),
-                new HtmlTag("_ad18db", HtmlSelectorEnum.CLASS)
+    public HTMLSelectorsForParse getHTMLSelectorsForParse() {
+        return new HTMLSelectorsForParse(
+                new HTMLTag("_346238", HTMLSelectorEnum.CLASS),
+                new HTMLTag("_d85b45", HTMLSelectorEnum.CLASS),
+                new UrlTag("_d85b45", HTMLSelectorEnum.CLASS, "href"),
+                new UrlTag("_d85b45", HTMLSelectorEnum.CLASS, "src"),
+                new HTMLTag("_5cf853", HTMLSelectorEnum.CLASS),
+                new HTMLTag("_5cf853", HTMLSelectorEnum.CLASS),
+                new HTMLTag("_ad18db", HTMLSelectorEnum.CLASS),
+                new HTMLTag("_ad18db", HTMLSelectorEnum.CLASS)
         );
     }
 
     @Override
-    public String setNextPageIdentifyer() {
+    public String getNextPageURISelector() {
         return null;
     }
 }

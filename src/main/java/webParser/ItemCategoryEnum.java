@@ -2,7 +2,7 @@ package webParser;
 
 public enum ItemCategoryEnum {
     SNEAKERS,
-    PERFUM,
+    PERFUME,
     ACCESSORIES,
     OUTWEAR,
     TROUSERS,

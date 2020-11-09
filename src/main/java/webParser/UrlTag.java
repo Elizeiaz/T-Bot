@@ -1,23 +1,23 @@
 package webParser;
 
 public class UrlTag {
-    HtmlTag htmlTag;
+    HTMLTag htmlTag;
     String attrName;
-    HtmlSelectorEnum selectorEnum;
+    HTMLSelectorEnum selectorEnum;
     String urlAttribName;
 
     public UrlTag(
             String attrName,
-            HtmlSelectorEnum selectorEnum,
+            HTMLSelectorEnum selectorEnum,
             String urlAttribName
     ){
         this.attrName = attrName;
         this.selectorEnum = selectorEnum;
         this.urlAttribName = urlAttribName;
-        this.htmlTag = new HtmlTag(this.attrName, this.selectorEnum);
+        this.htmlTag = new HTMLTag(this.attrName, this.selectorEnum);
     }
 
-    public HtmlTag getHtmlTag() {
+    public HTMLTag getHTMLTag() {
         return htmlTag;
     }
 
@@ -25,7 +25,7 @@ public class UrlTag {
         return attrName;
     }
 
-    public HtmlSelectorEnum getSelectorEnum() {
+    public HTMLSelectorEnum getSelectorEnum() {
         return selectorEnum;
     }
 

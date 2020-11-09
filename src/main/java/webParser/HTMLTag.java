@@ -1,10 +1,10 @@
 package webParser;
 
-public class HtmlTag {
+public class HTMLTag {
     private String tagName;
-    private HtmlSelectorEnum htmlTag;
+    private HTMLSelectorEnum htmlTag;
 
-    public HtmlTag(String tagName, HtmlSelectorEnum htmlTag){
+    public HTMLTag(String tagName, HTMLSelectorEnum htmlTag){
         this.tagName = tagName;
         this.htmlTag = htmlTag;
     }
@@ -17,11 +17,11 @@ public class HtmlTag {
         this.tagName = tagName;
     }
 
-    public HtmlSelectorEnum getHtmlTag() {
+    public HTMLSelectorEnum getHtmlTag() {
         return htmlTag;
     }
 
-    public void setHtmlTagEnum(HtmlSelectorEnum htmlSelectorEnum) {
+    public void setHtmlTagEnum(HTMLSelectorEnum htmlSelectorEnum) {
         this.htmlTag = htmlSelectorEnum;
     }
 }

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class User {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    //Нормально?
     private final Paths path = new Paths();
     private final FileWorker fileWorker = new FileWorker();
 

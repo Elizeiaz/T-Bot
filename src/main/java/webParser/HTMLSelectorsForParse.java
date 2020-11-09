@@ -1,32 +1,27 @@
 package webParser;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class ParserSelector {
-    private final HtmlTag brand;
-    private final HtmlTag itemName;
+public class HTMLSelectorsForParse {
+    private final HTMLTag brand;
+    private final HTMLTag itemModel;
     private final UrlTag itemUrl;
     private final UrlTag photoUrl;
-    private final HtmlTag sizes;
-    private final HtmlTag price;
-    private final HtmlTag fullPrice;
-    private final HtmlTag discountPrice;
+    private final HTMLTag sizes;
+    private final HTMLTag price;
+    private final HTMLTag fullPrice;
+    private final HTMLTag discountPrice;
 
 
-    public ParserSelector(
-            HtmlTag brand,
-            HtmlTag itemName,
+    public HTMLSelectorsForParse(
+            HTMLTag brand,
+            HTMLTag itemModel,
             UrlTag itemUrl,
             UrlTag photoUrl,
-            HtmlTag sizes,
-            HtmlTag price,
-            HtmlTag fullPrice,
-            HtmlTag discountPrice) {
+            HTMLTag sizes,
+            HTMLTag price,
+            HTMLTag fullPrice,
+            HTMLTag discountPrice) {
         this.brand = brand;
-        this.itemName = itemName;
+        this.itemModel = itemModel;
         this.itemUrl = itemUrl;
         this.photoUrl = photoUrl;
         this.sizes = sizes;
@@ -35,29 +30,12 @@ public class ParserSelector {
         this.discountPrice = discountPrice;
     }
 
-
-//    public List<HtmlTag> getIter() {
-//        Field[] fields = ParserSelector.class.getDeclaredFields();
-//
-//        List<HtmlTag> selectors = new ArrayList<>();
-//
-//        for (Field field : fields) {
-//            try {
-//                selectors.add((HtmlTag) field.get(this)); // Ошибка каста
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return selectors;
-//    }
-
-    public HtmlTag getBrand() {
+    public HTMLTag getBrand() {
         return brand;
     }
 
-    public HtmlTag getItemName() {
-        return itemName;
+    public HTMLTag getItemModel() {
+        return itemModel;
     }
 
     public UrlTag getItemUrl() {
@@ -68,17 +46,19 @@ public class ParserSelector {
         return photoUrl;
     }
 
-    public HtmlTag getSizes(){
+    public HTMLTag getSizes() {
         return sizes;
     }
 
-    public HtmlTag getPrice() {
+    public HTMLTag getPrice() {
         return price;
     }
 
-    public HtmlTag getFullPrice() {return fullPrice;}
+    public HTMLTag getFullPrice() {
+        return fullPrice;
+    }
 
-    public HtmlTag getDiscountPrice() {
+    public HTMLTag getDiscountPrice() {
         return discountPrice;
     }
 

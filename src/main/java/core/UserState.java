@@ -2,8 +2,6 @@ package core;
 
 public class UserState {
     private String lastCommand;
-//    Состояние 0 - команда выполнена;
-//    Число отличное от 0 - Этап выполнения команды;
 
     private String tmpUserInfo;
 

@@ -1,7 +1,13 @@
 package commands;
 
 import com.sun.tools.javac.Main;
+import sites.URIForParse;
+import sites.Yoox;
+import webParser.Item;
+import webParser.ItemCategoryEnum;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -15,13 +21,17 @@ public class RandomItem implements Command {
     }
 
     public String getRandomItem(){
-//        UrlsForParse urlsForParse = new UrlsForParse();
-//        Yoox yoox = new Yoox(urlsForParse.getYoox());
-//        yoox.startParse();
-//
-//        int randomInt = random.nextInt(yoox.itemCount());
-//        Item item = yoox.getItem(randomInt);
-//        return item.itemToString();
-        return null;
+        List<URIForParse> uris = new ArrayList<>();
+        URIForParse uri = new URIForParse(
+                "https://www.yoox.com/RU/shoponline?dept=samplesaleman&gender=U&page=1&attributes=%7B%27ctgr%27%3A%5B%27snkrs5%27%5D%7D&season=X&clientabt=SmsMultiChannel_ON%2CSrRecommendations_ON%2CRecentlyViewed_ON%2CRecentlyViewedItemPage_ON%2CmyooxNew_ON%2CImageFormatB_ON%2COnePageCheckout_ON",
+                ItemCategoryEnum.SNEAKERS
+        );
+        uris.add(uri);
+
+        Yoox yoox = new Yoox();
+        yoox.startParse(uris);
+        int randomInt = random.nextInt(yoox.itemCount());
+        Item item = yoox.getItem(randomInt);
+        return item.itemToString();
     }
 }

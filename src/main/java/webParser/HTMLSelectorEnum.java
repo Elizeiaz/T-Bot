@@ -1,6 +1,6 @@
 package webParser;
 
-public enum HtmlSelectorEnum {
+public enum HTMLSelectorEnum {
     CLASS,
     ID,
     TAG,

@@ -1,18 +1,16 @@
 package webParser;
 
-import com.sun.tools.javac.Main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import sites.URIForParse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AbstractParser {
-    abstract String setNextPageIdentifyer();
+    abstract String getNextPageURISelector();
 
     abstract public boolean startParse(List<URIForParse> urisForParse);
 
@@ -30,11 +28,9 @@ public abstract class AbstractParser {
     }
 
     private final Pattern numberRegExp = Pattern.compile("\\d+");
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
     public String toNextPage(String uri) {
         try {
-            String identifyer = setNextPageIdentifyer();
+            String identifyer = getNextPageURISelector();
 
             int index = uri.indexOf(identifyer);
             if (index == -1) {
@@ -49,8 +45,6 @@ public abstract class AbstractParser {
                 tailUrl = uri.substring(index + identifyer.length() + matcher.group().length());
                 nextPage = Integer.parseInt(matcher.group()) + 1;
             }
-
-            logger.info(String.valueOf(nextPage));
             return headUrl + nextPage + tailUrl;
 
         } catch (Exception e) {
