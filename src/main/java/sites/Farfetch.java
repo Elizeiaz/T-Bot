@@ -23,8 +23,8 @@ public class Farfetch extends HTMLParser {
         return new HTMLSelectorsForParse(
                 new HTMLTag("_346238", HTMLSelectorEnum.CLASS),
                 new HTMLTag("_d85b45", HTMLSelectorEnum.CLASS),
-                new UrlTag("_d85b45", HTMLSelectorEnum.CLASS, "href"),
-                new UrlTag("_d85b45", HTMLSelectorEnum.CLASS, "src"),
+                new URLTag("_d85b45", HTMLSelectorEnum.CLASS, "href"),
+                new URLTag("_d85b45", HTMLSelectorEnum.CLASS, "src"),
                 new HTMLTag("_5cf853", HTMLSelectorEnum.CLASS),
                 new HTMLTag("_5cf853", HTMLSelectorEnum.CLASS),
                 new HTMLTag("_ad18db", HTMLSelectorEnum.CLASS),

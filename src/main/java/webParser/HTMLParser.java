@@ -72,8 +72,8 @@ public abstract class HTMLParser extends AbstractParser {
     public Item parseItem(Element htmlItemContainer, ItemCategoryEnum category) {
         String brand = parseBrand(htmlItemContainer);
         String itemModel = parseItemModel(htmlItemContainer);
-        String itemUrl = parseItemUrl(htmlItemContainer);
-        String photoUrl = parsePhotoUrl(htmlItemContainer);
+        String itemURL = parseItemUrl(htmlItemContainer);
+        String photoURL = parsePhotoUrl(htmlItemContainer);
         String sizes = parseSizes(htmlItemContainer);
         String strPrice = parsePrice(htmlItemContainer);
         String strFullPrice = parseFullPrice(htmlItemContainer);
@@ -93,8 +93,8 @@ public abstract class HTMLParser extends AbstractParser {
                 category,
                 brand,
                 itemModel,
-                itemUrl,
-                photoUrl,
+                itemURL,
+                photoURL,
                 sizes,
                 strPrice,
                 strDiscountPrice
@@ -114,20 +114,20 @@ public abstract class HTMLParser extends AbstractParser {
     }
 
     public String parseItemUrl(Element htmlItemContainer) {
-        return getSiteURI() + grepUrl(
+        return getSiteURI().substring(0, getSiteURI().length() - 1) + grepUrl(
                 htmlItemContainer,
-                htmlSelectorsForParse.getItemUrl().getAttrName(),
-                htmlSelectorsForParse.getItemUrl().getSelectorEnum(),
-                htmlSelectorsForParse.getItemUrl().getUrlAttribName()
+                htmlSelectorsForParse.getItemURL().getAttrName(),
+                htmlSelectorsForParse.getItemURL().getSelectorEnum(),
+                htmlSelectorsForParse.getItemURL().getUrlAttribName()
         );
     }
 
     public String parsePhotoUrl(Element htmlItemContainer) {
         return grepUrl(
                 htmlItemContainer,
-                htmlSelectorsForParse.getPhotoUrl().getAttrName(),
-                htmlSelectorsForParse.getPhotoUrl().getSelectorEnum(),
-                htmlSelectorsForParse.getPhotoUrl().getUrlAttribName()
+                htmlSelectorsForParse.getPhotoURL().getAttrName(),
+                htmlSelectorsForParse.getPhotoURL().getSelectorEnum(),
+                htmlSelectorsForParse.getPhotoURL().getUrlAttribName()
         );
     }
 

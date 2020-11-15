@@ -1,22 +1,21 @@
 package webParser;
 
 import com.sun.tools.javac.Main;
-import core.JSONHandler;
 
 import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Item {
     private String siteName = "";
-    private String siteUrl = "";
+    private String siteURL = "";
     private ItemCategoryEnum category = ItemCategoryEnum.NULL;
     private String brand = "";
     private String itemModel = "";
-    private String itemUrl = "";
-    private String photoUrl = "";
+    private String itemURL = "";
+    private String photoURL = "";
     private final List<Float> sizes;
     private final int price;
     private final int discountPrice;
@@ -50,23 +49,23 @@ public class Item {
 
     public Item(
             String siteName,
-            String siteUrl,
+            String siteURL,
             ItemCategoryEnum category,
             String brand,
             String itemModel,
-            String itemUrl,
-            String photoUrl,
+            String itemURL,
+            String photoURL,
             List<Float> sizes,
             int price,
             int discountPrice
     ) {
         this.siteName = siteName;
-        this.siteUrl = siteUrl;
+        this.siteURL = siteURL;
         this.category = category;
         this.brand = brand;
         this.itemModel = itemModel;
-        this.itemUrl = itemUrl;
-        this.photoUrl = photoUrl;
+        this.itemURL = itemURL;
+        this.photoURL = photoURL;
         this.sizes = sizes;
         this.price = price;
         this.discountPrice = discountPrice;
@@ -74,7 +73,7 @@ public class Item {
         normalize();
     }
 
-    public void normalize(){
+    public void normalize() {
         this.discount = (int) (100 - ((double) this.getDiscountPrice() / this.getPrice() * 100));
 
 //        //Normalize sizes
@@ -86,22 +85,31 @@ public class Item {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    public String getFields(){
-        return null;
+    public LinkedHashMap<String, String> getFieldsValue() {
+        LinkedHashMap<String, String> fieldsDict = new LinkedHashMap<>();
+        Field[] fields = Item.class.getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                fieldsDict.put(field.getName(), field.get(this).toString());
+            } catch (Exception ignored) {
+            }
+        }
+
+        return fieldsDict;
     }
 
     public String getSiteName() {
         return this.siteName;
     }
 
-    public String getSiteUrl() {
-        return this.siteUrl;
+    public String getSiteURL() {
+        return this.siteURL;
     }
 
     public ItemCategoryEnum getCategory() {
         return this.category;
     }
-    
+
     public String getBrand() {
         return this.brand;
     }
@@ -110,12 +118,12 @@ public class Item {
         return this.itemModel;
     }
 
-    public String getItemUrl() {
-        return this.itemUrl;
+    public String getItemURL() {
+        return this.itemURL;
     }
 
-    public String getPhotoUrl() {
-        return this.photoUrl;
+    public String getPhotoURL() {
+        return this.photoURL;
     }
 
     public List<Float> getSizes() {
@@ -130,7 +138,9 @@ public class Item {
         return this.discountPrice;
     }
 
-    public int getDiscount(){return this.discount;}
+    public int getDiscount() {
+        return this.discount;
+    }
 
     public String itemToString() {
         StringJoiner outString = new StringJoiner("\n");
@@ -160,7 +170,7 @@ public class Item {
         }
         outString.add("");
         outString.add("Сайт: " + this.siteName);
-        outString.add("Ссылка: " + this.itemUrl);
+        outString.add("Ссылка: " + this.itemURL);
 
         return outString.toString();
     }

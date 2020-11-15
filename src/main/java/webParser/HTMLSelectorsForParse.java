@@ -3,8 +3,8 @@ package webParser;
 public class HTMLSelectorsForParse {
     private final HTMLTag brand;
     private final HTMLTag itemModel;
-    private final UrlTag itemUrl;
-    private final UrlTag photoUrl;
+    private final URLTag itemURL;
+    private final URLTag photoURL;
     private final HTMLTag sizes;
     private final HTMLTag price;
     private final HTMLTag fullPrice;
@@ -14,16 +14,16 @@ public class HTMLSelectorsForParse {
     public HTMLSelectorsForParse(
             HTMLTag brand,
             HTMLTag itemModel,
-            UrlTag itemUrl,
-            UrlTag photoUrl,
+            URLTag itemURL,
+            URLTag photoURL,
             HTMLTag sizes,
             HTMLTag price,
             HTMLTag fullPrice,
             HTMLTag discountPrice) {
         this.brand = brand;
         this.itemModel = itemModel;
-        this.itemUrl = itemUrl;
-        this.photoUrl = photoUrl;
+        this.itemURL = itemURL;
+        this.photoURL = photoURL;
         this.sizes = sizes;
         this.price = price;
         this.fullPrice = fullPrice;
@@ -38,12 +38,12 @@ public class HTMLSelectorsForParse {
         return itemModel;
     }
 
-    public UrlTag getItemUrl() {
-        return itemUrl;
+    public URLTag getItemURL() {
+        return itemURL;
     }
 
-    public UrlTag getPhotoUrl() {
-        return photoUrl;
+    public URLTag getPhotoURL() {
+        return photoURL;
     }
 
     public HTMLTag getSizes() {

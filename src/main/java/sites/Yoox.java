@@ -23,8 +23,8 @@ public class Yoox extends HTMLParser {
         return new HTMLSelectorsForParse(
                 new HTMLTag("brand font-bold text-uppercase", HTMLSelectorEnum.CLASS),
                 new HTMLTag("title", HTMLSelectorEnum.CLASS),
-                new UrlTag("a", HTMLSelectorEnum.TAG, "href"),
-                new UrlTag("front imgFormat_20_f js-lazy-load flipside", HTMLSelectorEnum.CLASS, "data-original"),
+                new URLTag("a", HTMLSelectorEnum.TAG, "href"),
+                new URLTag("front imgFormat_20_f js-lazy-load flipside", HTMLSelectorEnum.CLASS, "data-original"),
                 new HTMLTag("size text-light", HTMLSelectorEnum.CLASS),
                 new HTMLTag("fullprice font-bold", HTMLSelectorEnum.CLASS),
                 new HTMLTag("oldprice text-linethrough text-light", HTMLSelectorEnum.CLASS),
