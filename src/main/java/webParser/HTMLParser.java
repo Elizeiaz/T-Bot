@@ -31,7 +31,7 @@ public abstract class HTMLParser extends AbstractParser {
         for (URIForParse uri : urisForParse) {
             while (true) {
                 Document html = getHtmlPage(uri.getUri());
-                if (html == null){
+                if (html == null) {
                     break;
                 }
                 boolean curIsParsed = parseHTML(html, uri.getCategory());
@@ -46,7 +46,7 @@ public abstract class HTMLParser extends AbstractParser {
         return isParsed;
     }
 
-    public boolean parseHTML(Document html, ItemCategoryEnum category) {
+    private boolean parseHTML(Document html, ItemCategoryEnum category) {
         logger.fine("Start parsing " + html.location());
 
         boolean isItemParsed = false;
@@ -69,7 +69,7 @@ public abstract class HTMLParser extends AbstractParser {
         return isItemParsed;
     }
 
-    public Item parseItem(Element htmlItemContainer, ItemCategoryEnum category) {
+    private Item parseItem(Element htmlItemContainer, ItemCategoryEnum category) {
         String brand = parseBrand(htmlItemContainer);
         String itemModel = parseItemModel(htmlItemContainer);
         String itemURL = parseItemUrl(htmlItemContainer);
@@ -101,19 +101,22 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public String parseBrand(Element htmlItemContainer) {
-        return grepHTMLEmenent(htmlItemContainer,
+
+    private String parseBrand(Element htmlItemContainer) {
+        return grepHTMLEmenent(
+                htmlItemContainer,
                 htmlSelectorsForParse.getBrand().getTagName(),
-                htmlSelectorsForParse.getBrand().getHtmlTag());
+                htmlSelectorsForParse.getBrand().getHtmlTag()
+        );
     }
 
-    public String parseItemModel(Element htmlItemContainer) {
+    private String parseItemModel(Element htmlItemContainer) {
         return grepHTMLEmenent(htmlItemContainer,
                 htmlSelectorsForParse.getItemModel().getTagName(),
                 htmlSelectorsForParse.getItemModel().getHtmlTag());
     }
 
-    public String parseItemUrl(Element htmlItemContainer) {
+    private String parseItemUrl(Element htmlItemContainer) {
         return getSiteURI().substring(0, getSiteURI().length() - 1) + grepUrl(
                 htmlItemContainer,
                 htmlSelectorsForParse.getItemURL().getAttrName(),
@@ -122,7 +125,7 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public String parsePhotoUrl(Element htmlItemContainer) {
+    private String parsePhotoUrl(Element htmlItemContainer) {
         return grepUrl(
                 htmlItemContainer,
                 htmlSelectorsForParse.getPhotoURL().getAttrName(),
@@ -131,14 +134,14 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public String parseSizes(Element htmlItemContainer) {
+    private String parseSizes(Element htmlItemContainer) {
         return grepHTMLEmenent(htmlItemContainer,
                 htmlSelectorsForParse.getSizes().getTagName(),
                 htmlSelectorsForParse.getSizes().getHtmlTag()
         );
     }
 
-    public String parsePrice(Element htmlItemContainer) {
+    private String parsePrice(Element htmlItemContainer) {
         return grepHTMLEmenent(
                 htmlItemContainer,
                 htmlSelectorsForParse.getPrice().getTagName(),
@@ -146,7 +149,7 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public String parseFullPrice(Element htmlItemContainer) {
+    private String parseFullPrice(Element htmlItemContainer) {
         return grepHTMLEmenent(
                 htmlItemContainer,
                 htmlSelectorsForParse.getFullPrice().getTagName(),
@@ -154,7 +157,7 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public String parseDiscountPrice(Element htmlItemContainer) {
+    private String parseDiscountPrice(Element htmlItemContainer) {
         return grepHTMLEmenent(
                 htmlItemContainer,
                 htmlSelectorsForParse.getDiscountPrice().getTagName(),
@@ -162,27 +165,27 @@ public abstract class HTMLParser extends AbstractParser {
         );
     }
 
-    public Elements putInContainer(Document htmlPage, String cssQuery) {
-        return htmlPage.select(cssQuery);
+    private Elements putInContainer(Document htmlPage, String cssQuerySelector) {
+        return htmlPage.select(cssQuerySelector);
     }
 
-    public String grepHTMLByClass(Element htmlPage, String className) {
+    private String grepHTMLByClass(Element htmlPage, String className) {
         return htmlPage.getElementsByClass(className).text();
     }
 
-    public String grepHTMLByTag(Element htmlPage, String tagName) {
+    private String grepHTMLByTag(Element htmlPage, String tagName) {
         return htmlPage.getElementsByTag(tagName).text();
     }
 
-    public String grepHTMLByID(Element htmlPage, String idName) {
+    private String grepHTMLByID(Element htmlPage, String idName) {
         return htmlPage.getElementById(idName).text();
     }
 
-    public String grepHTMLByAttribute(Element htmlPage, String attributeName) {
+    private String grepHTMLByAttribute(Element htmlPage, String attributeName) {
         return htmlPage.getElementsByAttribute(attributeName).text();
     }
 
-    public String grepHTMLEmenent(Element htmlPage, String elementName, HTMLSelectorEnum htmlSelector) {
+    private String grepHTMLEmenent(Element htmlPage, String elementName, HTMLSelectorEnum htmlSelector) {
         return switch (htmlSelector) {
             case CLASS -> grepHTMLByClass(htmlPage, elementName);
             case ID -> grepHTMLByID(htmlPage, elementName);
@@ -191,7 +194,7 @@ public abstract class HTMLParser extends AbstractParser {
         };
     }
 
-    public String grepUrl(Element htmlPage, String attrName, HTMLSelectorEnum selectorEnum, String urlAttrName) {
+    private String grepUrl(Element htmlPage, String attrName, HTMLSelectorEnum selectorEnum, String urlAttrName) {
         Element element = switch (selectorEnum) {
             case CLASS -> htmlPage.getElementsByClass(attrName).first();
             case ID -> htmlPage.getElementById(attrName);

@@ -1,12 +1,9 @@
 package webParser;
 
-import com.sun.tools.javac.Main;
 
-import java.lang.reflect.Field;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.logging.Logger;
+
 
 public class Item {
     private String siteName = "";
@@ -20,31 +17,6 @@ public class Item {
     private final int price;
     private final int discountPrice;
     private int discount = 0;
-
-//    public Item(HashMap<String, String> itemDict) {
-//        for (String value : itemDict.keySet()) {
-//            switch (value) {
-//                case "siteName":
-//                    this.siteName = itemDict.get(value);
-//                case "siteUrl":
-//                    this.siteUrl = itemDict.get(value);
-//                case "category":
-//                    this.category = itemDict.get(value);
-//                case "brand":
-//                    this.brand = itemDict.get(value);
-//                case "itemModel":
-//                    this.itemModel = itemDict.get(value);
-//                case "url":
-//                    this.url = itemDict.get(value);
-//                case "photoUrl":
-//                    this.photoUrl = itemDict.get(value);
-//                case "price":
-//                    this.price = Integer.parseInt(itemDict.get(value));
-//                case "discountPrice":
-//                    this.discountPrice = Integer.parseInt(itemDict.get(value));
-//            }
-//        }
-//    }
 
 
     public Item(
@@ -70,34 +42,13 @@ public class Item {
         this.price = price;
         this.discountPrice = discountPrice;
 
-        normalize();
+        calculateDiscount();
     }
 
-    public void normalize() {
+    public void calculateDiscount() {
         this.discount = (int) (100 - ((double) this.getDiscountPrice() / this.getPrice() * 100));
-
-//        //Normalize sizes
-//        for (Float size : sizes){
-//            sizes.indexOf()
-//        }
-//        sizes.set(1, (float) 2);
     }
-
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
-    public LinkedHashMap<String, String> getFieldsValue() {
-        LinkedHashMap<String, String> fieldsDict = new LinkedHashMap<>();
-        Field[] fields = Item.class.getDeclaredFields();
-        for (Field field : fields) {
-            try {
-                fieldsDict.put(field.getName(), field.get(this).toString());
-            } catch (Exception ignored) {
-            }
-        }
-
-        return fieldsDict;
-    }
-
+    
     public String getSiteName() {
         return this.siteName;
     }
@@ -130,20 +81,7 @@ public class Item {
         return this.sizes;
     }
 
-    public int getPrice() {
-        return this.price;
-    }
-
-    public int getDiscountPrice() {
-        return this.discountPrice;
-    }
-
-    public int getDiscount() {
-        return this.discount;
-    }
-
-    public String itemToString() {
-        StringJoiner outString = new StringJoiner("\n");
+    public String getSizesString() {
         StringJoiner sizeString = new StringJoiner("  ");
         for (Float size : sizes) {
             String strSize = size.toString();
@@ -154,24 +92,18 @@ public class Item {
             }
         }
 
-        outString.add(this.brand);
-        if (!this.brand.equals(this.itemModel)) {
-            outString.add("Модель: " + this.itemModel);
-        }
-        if (this.price == this.discountPrice) {
-            outString.add("Цена " + this.price);
-        } else {
-            outString.add("Старая цена: " + this.price + "руб");
-            outString.add("Цена со скидкой: " + this.discountPrice + "руб");
-            outString.add("Ваша скидка: " + this.discount + "%");
-        }
-        if (!sizeString.toString().equals("")) {
-            outString.add("Доступные размеры: " + sizeString.toString());
-        }
-        outString.add("");
-        outString.add("Сайт: " + this.siteName);
-        outString.add("Ссылка: " + this.itemURL);
+        return sizeString.toString();
+    }
 
-        return outString.toString();
+    public int getPrice() {
+        return this.price;
+    }
+
+    public int getDiscountPrice() {
+        return this.discountPrice;
+    }
+
+    public int getDiscount() {
+        return this.discount;
     }
 }

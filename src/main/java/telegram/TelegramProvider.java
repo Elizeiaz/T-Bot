@@ -26,7 +26,8 @@ public class TelegramProvider extends TelegramLongPollingBot {
 
             SendMessage message = new SendMessage()
                     .setChatId(update.getMessage().getChatId())
-                    .setText(messageFromCommand);
+                    .setText(messageFromCommand)
+                    .setParseMode("html");
             try {
                 execute(message);
             } catch (TelegramApiException e) {

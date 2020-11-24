@@ -9,9 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemFactory {
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
-    Pattern numberRegExp = Pattern.compile("\\d*[., ]\\d*");
+    Pattern numberRegExp = Pattern.compile("\\d*[., ]?\\d*");
     Pattern sizesRegExp = Pattern.compile("\\d*[.,]?\\d");
 
     public Item createNewItem(
@@ -39,7 +37,7 @@ public class ItemFactory {
 
         while (matcherForSizes.find()) {
             Float floatSize = Float.valueOf(matcherForSizes.group());
-            if (!sizesList.contains(floatSize)){
+            if (!sizesList.contains(floatSize)) {
                 sizesList.add(floatSize);
             }
         }
@@ -57,9 +55,12 @@ public class ItemFactory {
 
         Matcher matcherForDiscountPrice = numberRegExp.matcher(strDiscountPrice);
 
-        int intDiscountPrice = intPrice;
+        int intDiscountPrice = 0;
         if (matcherForDiscountPrice.find()) {
-            intDiscountPrice = Integer.parseInt(matcherForDiscountPrice.group().replaceAll("[ ,.]", ""));
+            if (!matcherForDiscountPrice.group().equals("")){
+                intDiscountPrice = Integer.parseInt(matcherForDiscountPrice.group().
+                        replaceAll("[ ,.]", ""));
+            }
         }
 
         return new Item(

@@ -17,6 +17,7 @@ public class JSONHandler {
     ObjectMapper mapper = new ObjectMapper();
     JsonFactory jsonFactory = new JsonFactory();
 
+
     public String objectToJson(Object objectName) {
         String jsonObject = null;
         try {
@@ -43,6 +44,7 @@ public class JSONHandler {
         HashMap<String, String> JSONDict = new HashMap<>();
         try {
             JsonParser jsonParser = jsonFactory.createParser(JSONString);
+            jsonParser.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
             jsonParser.nextToken();
 
             while (jsonParser.nextToken() != JsonToken.END_OBJECT) {

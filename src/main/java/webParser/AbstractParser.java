@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AbstractParser {
-    abstract String getNextPageURISelector();
+    protected abstract String getNextPageURISelector();
 
     abstract public boolean startParse(List<URIForParse> urisForParse);
 

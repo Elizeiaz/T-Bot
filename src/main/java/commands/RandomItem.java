@@ -3,6 +3,7 @@ package commands;
 import com.sun.tools.javac.Main;
 import sites.URIForParse;
 import sites.Yoox;
+import telegram.ItemConverter;
 import webParser.Item;
 import webParser.ItemCategoryEnum;
 
@@ -32,6 +33,7 @@ public class RandomItem implements Command {
         yoox.startParse(uris);
         int randomInt = random.nextInt(yoox.itemCount());
         Item item = yoox.getItem(randomInt);
-        return item.itemToString();
+        ItemConverter itemConverter = new ItemConverter();
+        return itemConverter.itemToString(item);
     }
 }

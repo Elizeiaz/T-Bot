@@ -1,12 +1,12 @@
 package webParser;
 
-public class URLTag {
+public class URLHTMLTag {
     HTMLTag htmlTag;
     String attrName;
     HTMLSelectorEnum selectorEnum;
     String urlAttribName;
 
-    public URLTag(
+    public URLHTMLTag(
             String attrName,
             HTMLSelectorEnum selectorEnum,
             String urlAttribName
