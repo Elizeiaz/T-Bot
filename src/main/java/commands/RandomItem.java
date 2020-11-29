@@ -30,7 +30,7 @@ public class RandomItem implements Command {
         uris.add(uri);
 
         Yoox yoox = new Yoox();
-        yoox.startParse(uris);
+        yoox.parse(uris);
         int randomInt = random.nextInt(yoox.itemCount());
         Item item = yoox.getItem(randomInt);
         ItemConverter itemConverter = new ItemConverter();

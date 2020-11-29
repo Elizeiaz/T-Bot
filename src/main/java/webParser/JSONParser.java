@@ -30,7 +30,7 @@ public abstract class JSONParser extends AbstractParser {
     abstract public JSONSelectorsForParse getJSONSelectorsForParse();
 
     @Override
-    public boolean startParse(List<URIForParse> urisForParse) {
+    public boolean parse(List<URIForParse> urisForParse) {
         boolean isParsed = false;
         for (URIForParse uri : urisForParse) {
             while (true) {

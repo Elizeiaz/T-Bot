@@ -26,7 +26,7 @@ public abstract class HTMLParser extends AbstractParser {
     abstract public String getNextPageURISelector();
 
     @Override
-    public boolean startParse(List<URIForParse> urisForParse) {
+    public boolean parse(List<URIForParse> urisForParse) {
         boolean isParsed = false;
         for (URIForParse uri : urisForParse) {
             while (true) {

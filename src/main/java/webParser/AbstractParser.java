@@ -12,7 +12,9 @@ import java.util.regex.Pattern;
 public abstract class AbstractParser {
     protected abstract String getNextPageURISelector();
 
-    abstract public boolean startParse(List<URIForParse> urisForParse);
+    //todo list вынести наружу
+    //todo Вторым параметром передать что-то куда записывать item
+    abstract public boolean parse(List<URIForParse> urisForParse);
 
     public Document getHtmlPage(String uri) {
         Document htmlPage = null;
@@ -21,6 +23,7 @@ public abstract class AbstractParser {
                     userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)" +
                             " Chrome/86.0.4240.183 Safari/537.36").get();
         } catch (Exception e) {
+            //todo Сделать логгером
             return null;
         }
 
@@ -29,6 +32,7 @@ public abstract class AbstractParser {
 
     private final Pattern numberRegExp = Pattern.compile("\\d+");
     public String toNextPage(String uri) {
+        //todo parse query string
         try {
             String identifyer = getNextPageURISelector();
 
