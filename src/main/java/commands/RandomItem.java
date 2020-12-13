@@ -22,15 +22,13 @@ public class RandomItem implements Command {
     }
 
     public String getRandomItem(){
-        List<URIForParse> uris = new ArrayList<>();
         URIForParse uri = new URIForParse(
                 "https://www.yoox.com/RU/shoponline?dept=samplesaleman&gender=U&page=1&attributes=%7B%27ctgr%27%3A%5B%27snkrs5%27%5D%7D&season=X&clientabt=SmsMultiChannel_ON%2CSrRecommendations_ON%2CRecentlyViewed_ON%2CRecentlyViewedItemPage_ON%2CmyooxNew_ON%2CImageFormatB_ON%2COnePageCheckout_ON",
                 ItemCategoryEnum.SNEAKERS
         );
-        uris.add(uri);
-
         Yoox yoox = new Yoox();
-        yoox.parse(uris);
+        yoox.parse(uri);
+
         int randomInt = random.nextInt(yoox.itemCount());
         Item item = yoox.getItem(randomInt);
         ItemConverter itemConverter = new ItemConverter();

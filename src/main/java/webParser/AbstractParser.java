@@ -6,15 +6,13 @@ import sites.URIForParse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class AbstractParser {
     protected abstract String getNextPageURISelector();
 
     //todo list вынести наружу
     //todo Вторым параметром передать что-то куда записывать item
-    abstract public boolean parse(List<URIForParse> urisForParse);
+    abstract public boolean parse(URIForParse uriForParse);
 
     public Document getHtmlPage(String uri) {
         Document htmlPage = null;
@@ -30,38 +28,14 @@ public abstract class AbstractParser {
         return htmlPage;
     }
 
-    private final Pattern numberRegExp = Pattern.compile("\\d+");
-    public String toNextPage(String uri) {
-        //todo parse query string
-        try {
-            String identifyer = getNextPageURISelector();
-
-            int index = uri.indexOf(identifyer);
-            if (index == -1) {
-                return null;
-            }
-
-            String headUrl = uri.substring(0, index + identifyer.length());
-            String tailUrl = "";
-            Matcher matcher = numberRegExp.matcher(uri);
-            int nextPage = 1;
-            if (matcher.find(index + identifyer.length())) {
-                tailUrl = uri.substring(index + identifyer.length() + matcher.group().length());
-                nextPage = Integer.parseInt(matcher.group()) + 1;
-            }
-            return headUrl + nextPage + tailUrl;
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-
     private List<Item> itemList = new ArrayList<>();
 
     public boolean saveItem(Item item) {
         //todo saveItems in db
-        return itemList.add(item);
+        if (item != null){
+            return itemList.add(item);
+        }
+        return false;
     }
 
     public int itemCount() {

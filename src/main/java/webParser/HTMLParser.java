@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import sites.URIForParse;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class HTMLParser extends AbstractParser {
@@ -26,21 +25,20 @@ public abstract class HTMLParser extends AbstractParser {
     abstract public String getNextPageURISelector();
 
     @Override
-    public boolean parse(List<URIForParse> urisForParse) {
+    public boolean parse(URIForParse uriForParse) {
         boolean isParsed = false;
-        for (URIForParse uri : urisForParse) {
-            while (true) {
-                Document html = getHtmlPage(uri.getUri());
-                if (html == null) {
-                    break;
-                }
-                boolean curIsParsed = parseHTML(html, uri.getCategory());
-                if (!curIsParsed) {
-                    break;
-                }
-                isParsed = true;
-                uri.setUri(toNextPage(uri.getUri()));
+
+        while (true) {
+            Document html = getHtmlPage(uriForParse.getUri());
+            if (html == null) {
+                break;
             }
+            boolean curIsParsed = parseHTML(html, uriForParse.getCategory());
+            if (!curIsParsed) {
+                break;
+            }
+            isParsed = true;
+            uriForParse.setUri(uriForParse.toNextPage(getNextPageURISelector()));
         }
 
         return isParsed;
@@ -103,7 +101,7 @@ public abstract class HTMLParser extends AbstractParser {
 
 
     private String parseBrand(Element htmlItemContainer) {
-        return grepHTMLEmenent(
+        return grepHTMLElement(
                 htmlItemContainer,
                 htmlSelectorsForParse.getBrand().getTagName(),
                 htmlSelectorsForParse.getBrand().getHtmlTag()
@@ -111,7 +109,7 @@ public abstract class HTMLParser extends AbstractParser {
     }
 
     private String parseItemModel(Element htmlItemContainer) {
-        return grepHTMLEmenent(htmlItemContainer,
+        return grepHTMLElement(htmlItemContainer,
                 htmlSelectorsForParse.getItemModel().getTagName(),
                 htmlSelectorsForParse.getItemModel().getHtmlTag());
     }
@@ -135,14 +133,14 @@ public abstract class HTMLParser extends AbstractParser {
     }
 
     private String parseSizes(Element htmlItemContainer) {
-        return grepHTMLEmenent(htmlItemContainer,
+        return grepHTMLElement(htmlItemContainer,
                 htmlSelectorsForParse.getSizes().getTagName(),
                 htmlSelectorsForParse.getSizes().getHtmlTag()
         );
     }
 
     private String parsePrice(Element htmlItemContainer) {
-        return grepHTMLEmenent(
+        return grepHTMLElement(
                 htmlItemContainer,
                 htmlSelectorsForParse.getPrice().getTagName(),
                 htmlSelectorsForParse.getPrice().getHtmlTag()
@@ -150,7 +148,7 @@ public abstract class HTMLParser extends AbstractParser {
     }
 
     private String parseFullPrice(Element htmlItemContainer) {
-        return grepHTMLEmenent(
+        return grepHTMLElement(
                 htmlItemContainer,
                 htmlSelectorsForParse.getFullPrice().getTagName(),
                 htmlSelectorsForParse.getFullPrice().getHtmlTag()
@@ -158,7 +156,7 @@ public abstract class HTMLParser extends AbstractParser {
     }
 
     private String parseDiscountPrice(Element htmlItemContainer) {
-        return grepHTMLEmenent(
+        return grepHTMLElement(
                 htmlItemContainer,
                 htmlSelectorsForParse.getDiscountPrice().getTagName(),
                 htmlSelectorsForParse.getDiscountPrice().getHtmlTag()
@@ -185,7 +183,7 @@ public abstract class HTMLParser extends AbstractParser {
         return htmlPage.getElementsByAttribute(attributeName).text();
     }
 
-    private String grepHTMLEmenent(Element htmlPage, String elementName, HTMLSelectorEnum htmlSelector) {
+    private String grepHTMLElement(Element htmlPage, String elementName, HTMLSelectorEnum htmlSelector) {
         return switch (htmlSelector) {
             case CLASS -> grepHTMLByClass(htmlPage, elementName);
             case ID -> grepHTMLByID(htmlPage, elementName);

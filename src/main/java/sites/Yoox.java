@@ -34,6 +34,6 @@ public class Yoox extends HTMLParser {
 
     @Override
     public String getNextPageURISelector() {
-        return "page=";
+        return "&page=";
     }
 }

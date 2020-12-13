@@ -30,21 +30,19 @@ public abstract class JSONParser extends AbstractParser {
     abstract public JSONSelectorsForParse getJSONSelectorsForParse();
 
     @Override
-    public boolean parse(List<URIForParse> urisForParse) {
+    public boolean parse(URIForParse uriForParse) {
         boolean isParsed = false;
-        for (URIForParse uri : urisForParse) {
-            while (true) {
-                Document html = getHtmlPage(uri.getUri());
-                if (html == null) {
-                    break;
-                }
-                boolean curIsParsed = parseHTMLWithJSON(html, uri.getCategory());
-                if (!curIsParsed) {
-                    break;
-                }
-                isParsed = true;
-                uri.setUri(toNextPage(uri.getUri()));
+        while (true) {
+            Document html = getHtmlPage(uriForParse.getUri());
+            if (html == null) {
+                break;
             }
+            boolean curIsParsed = parseHTMLWithJSON(html, uriForParse.getCategory());
+            if (!curIsParsed) {
+                break;
+            }
+            isParsed = true;
+            uriForParse.setUri(uriForParse.toNextPage(getNextPageURISelector()));
         }
 
         return isParsed;
@@ -59,17 +57,28 @@ public abstract class JSONParser extends AbstractParser {
         List<String> stringsOfItems = putInContainer(jsonWithItems);
 
         for (String stringOfItem : stringsOfItems) {
-            HashMap<String, String> itemDict = converteJSONStringToDict(stringOfItem);
-            logger.info(itemDict.toString());
+            HashMap<String, String> itemDict = convertJSONStringToDict(stringOfItem);
             Item item = parseItem(itemDict, category);
-//            saveItem(item);
+            saveItem(item);
         }
         return false;
     }
 
     public Item parseItem(HashMap<String, String> itemDict, ItemCategoryEnum category) {
-        String strPrice = "0";
-        String strDiscountPrice = "0";
+        String strPrice = null;
+        String strDiscountPrice = null;
+
+        try {
+            strPrice = itemDict.get(getJSONSelectorsForParse().getPrice());
+        } catch (Exception ignored) {
+        }
+
+        if (strPrice == null) {
+            strPrice = itemDict.get(getJSONSelectorsForParse().getPrice());
+            if (strPrice != null) {
+                strDiscountPrice = itemDict.get(getJSONSelectorsForParse().getDiscountPrice());
+            } else return null;
+        }
 
         return itemFactory.createNewItem(
                 getSiteName(),
@@ -80,12 +89,12 @@ public abstract class JSONParser extends AbstractParser {
                 itemDict.get(getJSONSelectorsForParse().getItemURL()),
                 itemDict.get(getJSONSelectorsForParse().getPhotoURL()),
                 itemDict.get(getJSONSelectorsForParse().getSizes()),
-                itemDict.get("strPrice"),
-                itemDict.get("strDiscountPrice")
+                itemDict.get(strPrice),
+                itemDict.get(strDiscountPrice)
         );
     }
 
-    public HashMap<String, String> converteJSONStringToDict(String item) {
+    public HashMap<String, String> convertJSONStringToDict(String item) {
         JSONHandler jsonHandler = new JSONHandler();
         return jsonHandler.readJSON(item);
     }
