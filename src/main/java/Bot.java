@@ -37,18 +37,19 @@ public class Bot {
         logger.addHandler(consoleHandler);
     }
 
+
     public static void main(String[] args) {
-        //test JSONParser
-        Asos asos = new Asos();
-        URIForParse uriForParse = new URIForParse(
-                "https://www.asos.com/ru/men/tufli-botinki-i-krossovki/krossovki/cat/" +
-                        "?cid=5775&nlid=mw|%D0%BE%D0%B1%D1%83%D0%B2%D1%8C|%D1%81%D0%BE%D1%80%D1" +
-                        "%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C" +
-                        "+%D0%BF%D0%BE+%D1%82%D0%B8%D0%BF%D1%83+%D0" +
-                        "%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D0%B0",
-                ItemCategoryEnum.SNEAKERS);
-        asos.parse(uriForParse);
-        asos.getItem(0);
+//        test JSON parser
+//        ItemConverter itemConverter = new ItemConverter();
+//
+//        //test JSONParser
+//        Asos asos = new Asos();
+//        URIForParse uriForParse = new URIForParse(
+//                "https://www.asos.com/men/outlet/cat/?cid=27396&nlid=mw|outlet|shop+by+product",
+//                ItemCategoryEnum.SNEAKERS);
+//        asos.parse(uriForParse);
+//        logger.info(itemConverter.itemToString(asos.getItem(0)));
+
 
 //        Запуск бота
 //        ApiContextInitializer.init();

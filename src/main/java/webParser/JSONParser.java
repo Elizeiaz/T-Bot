@@ -29,6 +29,7 @@ public abstract class JSONParser extends AbstractParser {
 
     abstract public JSONSelectorsForParse getJSONSelectorsForParse();
 
+    //todo Придумать как парсить размеры с подвкладок
     @Override
     public boolean parse(URIForParse uriForParse) {
         boolean isParsed = false;
@@ -65,19 +66,15 @@ public abstract class JSONParser extends AbstractParser {
     }
 
     public Item parseItem(HashMap<String, String> itemDict, ItemCategoryEnum category) {
-        String strPrice = null;
-        String strDiscountPrice = null;
+        String strPrice = itemDict.get(getJSONSelectorsForParse().getPrice());
+        String fullPrice = itemDict.get(getJSONSelectorsForParse().getFullPrice());
+        String strDiscountPrice = itemDict.get(getJSONSelectorsForParse().getDiscountPrice());
 
-        try {
-            strPrice = itemDict.get(getJSONSelectorsForParse().getPrice());
-        } catch (Exception ignored) {
-        }
-
-        if (strPrice == null) {
-            strPrice = itemDict.get(getJSONSelectorsForParse().getPrice());
-            if (strPrice != null) {
-                strDiscountPrice = itemDict.get(getJSONSelectorsForParse().getDiscountPrice());
-            } else return null;
+        if (itemDict.get(getJSONSelectorsForParse().getPrice()) == null &&
+                itemDict.get(getJSONSelectorsForParse().getFullPrice()) == null) {
+            return null;
+        } else if (strPrice == null) {
+            strPrice = fullPrice;
         }
 
         return itemFactory.createNewItem(
@@ -89,8 +86,8 @@ public abstract class JSONParser extends AbstractParser {
                 itemDict.get(getJSONSelectorsForParse().getItemURL()),
                 itemDict.get(getJSONSelectorsForParse().getPhotoURL()),
                 itemDict.get(getJSONSelectorsForParse().getSizes()),
-                itemDict.get(strPrice),
-                itemDict.get(strDiscountPrice)
+                strPrice,
+                strDiscountPrice
         );
     }
 

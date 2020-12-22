@@ -33,14 +33,19 @@ public class ItemFactory {
         }
 
         List<Float> sizesList = new ArrayList<>();
-        Matcher matcherForSizes = sizesRegExp.matcher(sizes);
-
-        while (matcherForSizes.find()) {
-            Float floatSize = Float.valueOf(matcherForSizes.group());
-            if (!sizesList.contains(floatSize)) {
-                sizesList.add(floatSize);
+        try {
+            Matcher matcherForSizes = sizesRegExp.matcher(sizes);
+            while (matcherForSizes.find()) {
+                Float floatSize = Float.valueOf(matcherForSizes.group());
+                if (!sizesList.contains(floatSize)) {
+                    sizesList.add(floatSize);
+                }
             }
+        } catch (Exception ignored) {
         }
+
+
+
 
 
         Matcher matcherForPrice = numberRegExp.matcher(strPrice);
@@ -57,7 +62,7 @@ public class ItemFactory {
 
         int intDiscountPrice = 0;
         if (matcherForDiscountPrice.find()) {
-            if (!matcherForDiscountPrice.group().equals("")){
+            if (!matcherForDiscountPrice.group().equals("")) {
                 intDiscountPrice = Integer.parseInt(matcherForDiscountPrice.group().
                         replaceAll("[ ,.]", ""));
             }

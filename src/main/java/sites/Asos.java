@@ -28,7 +28,16 @@ public class Asos extends JSONParser {
 
     @Override
     public JSONSelectorsForParse getJSONSelectorsForParse() {
-        return new JSONSelectorsForParse();
+        return new JSONSelectorsForParse(
+                "description",
+                "description",
+                "url",
+                "image",
+                "size",
+                "price",
+                "price",
+                "reducedPrice"
+        );
     }
 
     @Override
