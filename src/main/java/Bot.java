@@ -1,22 +1,9 @@
 import com.sun.tools.javac.Main;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import sites.Asos;
-import sites.URIForParse;
-import telegram.ItemConverter;
-import telegram.TelegramProvider;
-import webParser.Item;
-import webParser.ItemCategoryEnum;
-import webParser.ItemFactory;
+import db.DBHandler;
 
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.sql.Connection;
 import java.util.logging.*;
 
 public class Bot {
@@ -39,6 +26,13 @@ public class Bot {
 
 
     public static void main(String[] args) {
+        DBHandler DBHandler = new DBHandler();
+        Connection connection = DBHandler.connectToDB();
+        DBHandler.createNewTable(connection, "testTable", "id INT");
+
+//        dataBase.deleteTable(connection, "users");
+//        dataBase.checkTableExist(connection, "sd");
+
 //        test JSON parser
 //        ItemConverter itemConverter = new ItemConverter();
 //

@@ -19,7 +19,6 @@ public class User {
     public UserStateEnum userStateEnum;
 
 
-    //Плохо ли в конструкторе подгружать инфу?
     public User(int id) {
         this.userState = new UserState();
         this.userId = id;
@@ -47,7 +46,7 @@ public class User {
         return file.exists();
     }
 
-
+    //todo пересмотреть что это такое
     private void uploadUserInfo() {
         if (!checkUser(path.getPathToUser(userId))) {
             logger.finer("User info not founded");
